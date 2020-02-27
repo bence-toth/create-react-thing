@@ -7,15 +7,7 @@ const meow = require('meow');
 const ui = importJsx('./ui');
 
 const cli = meow(`
-	Usage
-	  $ create-react-library
-
-	Options
-		--name  Your name
-
-	Examples
-	  $ create-react-library --name=Jane
-	  Hello, Jane
+	Some help text will come here.
 `);
 
 render(
