@@ -6,10 +6,13 @@ const meow = require('meow');
 
 const ui = importJsx('./ui');
 
-const cli = meow(`
+const {input, flags} = meow(`
 	Some help text will come here.
 `);
 
 render(
-	React.createElement(ui, cli.flags)
+	React.createElement(ui, {
+		packageName: input,
+		flags
+	})
 );

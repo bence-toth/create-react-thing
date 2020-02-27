@@ -4,22 +4,12 @@ const test = require('ava');
 const {render} = require('ink-testing-library');
 const App = require('./ui');
 
-test('greet unknown user', t => {
+test('show splash', t => {
 	const {lastFrame} = render((
-		<App/>
+		<App packageName="my-app"/>
 	));
 	t.is(
 		lastFrame(),
-		chalk`Hello, {green Stranger}`
-	);
-});
-
-test('greet user with a name', t => {
-	const {lastFrame} = render((
-		<App name="Jane"/>
-	));
-	t.is(
-		lastFrame(),
-		chalk`Hello, {green Jane}`
+		chalk`Creating React library {green my-app}`
 	);
 });
