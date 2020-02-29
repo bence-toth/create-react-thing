@@ -10,10 +10,10 @@
 		"test": "xo && ava"
 	},
 	"files": [
-    "LICENSE",
-    "README.md",
-    "CHANGELOG.md",
-    "src"
+		"LICENSE",
+		"README.md",
+		"CHANGELOG.md",
+		"src"
   ],
 	"dependencies": {
 		"import-jsx": "^3.1.0",
