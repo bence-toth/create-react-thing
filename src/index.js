@@ -12,7 +12,7 @@ const {input, flags} = meow(`
 
 render(
 	React.createElement(ui, {
-		packageName: input,
+		packageName: input[0],
 		flags
 	})
 );
