@@ -1,7 +1,7 @@
 const React = require('react');
 const {string, func, oneOf} = require('prop-types');
 const {Box, Text, Color} = require('ink');
-const {default: TextInput} = require('ink-text-input');
+const {default: Input} = require('ink-text-input');
 const {capitalizeString, validatePackageName} = require('./utility')
 
 const {useEffect, useState} = React;
@@ -39,7 +39,7 @@ const PackageNameInput = ({
 					<Box flexDirection="row">
 						<Text>- </Text>
 						<Text bold>npm package name: </Text>
-						<TextInput
+						<Input
 							value={packageName}
 							onChange={value => {
 								onSetIsDirty(true);
