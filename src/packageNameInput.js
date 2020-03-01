@@ -18,7 +18,9 @@ const PackageNameInput = ({
 	onSetStep,
 	state,
 	packageName,
-	onSetPackageName
+	onSetPackageName,
+	onSetIsScoped,
+	onSetScopeName
 }) => {
 	const [isDirty, onSetIsDirty] = useState(false)
 	useEffect(() => {
@@ -46,7 +48,18 @@ const PackageNameInput = ({
 							onSubmit={() => {
 								onSetIsDirty(true);
 								if (!validationErrors) {
-									onSetStep(2)
+									if (packageName.includes('/')) {
+										// Scoped package
+										onSetIsScoped(true);
+										const [scopeName, actualPackageName]
+											= packageName.split('/');
+										onSetPackageName(actualPackageName)
+										onSetScopeName(scopeName);
+										onSetStep(4);
+									}
+									else {
+										onSetStep(2);
+									}
 								}
 							}}
 						/>
@@ -85,7 +98,9 @@ PackageNameInput.propTypes = {
 	onSetStep: func,
 	state: oneOf(Object.values(PackageNameInput.states)),
 	packageName: string,
-	onSetPackageName: func
-};
+	onSetPackageName: func,
+	onSetIsScoped: func,
+	onSetScopeName: func
+}
 
 module.exports = PackageNameInput;

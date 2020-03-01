@@ -28,6 +28,7 @@ const App = ({
 
 	// Step 1: package name
 	// Step 2: is it a scoped package
+	// Step 3: scope name
 
 	// Step 1: package name
 	const [
@@ -41,10 +42,10 @@ const App = ({
 		onSetIsScoped
 	] = useState(false);
 
-	// Step 3
+	// Step 3: scope name
 	const [
-		authorName,
-		onSetAuthorName
+		scopeName,
+		onSetScopeName
 	] = useState('');
 
 	// Step 4
@@ -117,6 +118,8 @@ const App = ({
 				})()}
 				onSetPackageName={onSetPackageName}
 				onSetStep={onSetStep}
+				onSetIsScoped={onSetIsScoped}
+				onSetScopeName={onSetScopeName}
 			/>
 			{(Object.values(flags).length > 0) && (
 				<>
