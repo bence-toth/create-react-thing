@@ -1,9 +1,11 @@
 const React = require('react');
-const {useState, useEffect} = React;
-const {string, object} = require('prop-types');
+const {useState} = React;
+const {string, object, func, oneOf} = require('prop-types');
 const {Box, Text, Color} = require('ink');
 const {useNpmUsername} = require('./hooks');
-const {default: TextInput} = require('ink-text-input');
+const importJsx = require('import-jsx');
+
+const PackageNameInput = importJsx('./packageNameInput');
 
 const licenses = {
 	mit: 'mit',
@@ -24,13 +26,16 @@ const App = ({
 		onSetStep
 	] = useState(1)
 
-	// Step 1
+	// Step 1: package name
+	// Step 2: is it a scoped package
+
+	// Step 1: package name
 	const [
 		packageName,
 		onSetPackageName
 	] = useState(commandLineArgumentPackageName);
 
-	// Step 2
+	// Step 2: is it a scoped package
 	const [
 		isScoped,
 		onSetIsScoped
@@ -100,30 +105,19 @@ const App = ({
 					)}
 				</Text>
 			</Box>
-			{(step === 1) && (
-				<Box flexDirection="row">
-					<Text>- </Text>
-					<Text bold>npm package name: </Text>
-					<TextInput
-						value={packageName}
-						onChange={onSetPackageName}
-						onSubmit={() => {
-							onSetStep(2)
-						}}
-					/>
-				</Box>
-			)}
-			{(step > 1) && (
-				<Box flexDirection="row">
-					<Text>
-						<Color green>
-							{'✓ '}
-						</Color>
-					</Text>
-					<Text>npm package name: </Text>
-					<Text>{packageName}</Text>
-				</Box>
-			)}
+			<PackageNameInput
+				packageName={packageName}
+				state={(() => {
+					if (step === 1) {
+						return PackageNameInput.states.current
+					}
+					if (step > 1) {
+						return PackageNameInput.states.completed
+					}
+				})()}
+				onSetPackageName={onSetPackageName}
+				onSetStep={onSetStep}
+			/>
 			{(Object.values(flags).length > 0) && (
 				<>
 					<Text>{' '}</Text>
