@@ -6,6 +6,7 @@ const {useNpmUsername} = require('./hooks');
 const importJsx = require('import-jsx');
 
 const PackageNameInput = importJsx('./packageNameInput');
+const ScopedPackageSelect = importJsx('./scopedPackageSelect');
 
 const licenses = {
 	mit: 'mit',
@@ -96,6 +97,7 @@ const App = ({
 			paddingY={1}
 			paddingX={2}
 		>
+			<Text>Current step: {step}</Text>
 			<Box paddingBottom={1}>
 				<Text>
 					{'Creating React library '}
@@ -120,6 +122,22 @@ const App = ({
 				onSetStep={onSetStep}
 				onSetIsScoped={onSetIsScoped}
 				onSetScopeName={onSetScopeName}
+			/>
+			<ScopedPackageSelect
+				isScoped={isScoped}
+				state={(() => {
+					if (step < 2) {
+						return ScopedPackageSelect.states.upcoming
+					}
+					if (step === 2) {
+						return ScopedPackageSelect.states.current
+					}
+					if (step > 2) {
+						return ScopedPackageSelect.states.completed
+					}
+				})()}
+				onSetIsScoped={onSetIsScoped}
+				onSetStep={onSetStep}
 			/>
 			{(Object.values(flags).length > 0) && (
 				<>
