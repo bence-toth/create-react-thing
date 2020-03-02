@@ -2,10 +2,10 @@ const React = require('react');
 const {string, func, oneOf, oneOfType, bool, node} = require('prop-types');
 const {Box, Text, Color} = require('ink');
 const {default: Input} = require('ink-text-input');
-const {stepStates} = require('./enum')
+const {stepStates} = require('./enum');
 const importJsx = require('import-jsx');
 
-const ValidationError = importJsx('./validationError');
+const ValidationError = importJsx('./validation-error');
 
 const {current, completed} = stepStates;
 
@@ -19,7 +19,7 @@ const InputStep = ({
 	validationError,
 	children
 }) => (
-	<React.Fragment>
+	<>
 		{(state === current) && (
 			<Box flexDirection="column">
 				<Box flexDirection="row">
@@ -42,16 +42,17 @@ const InputStep = ({
 						paddingTop={1}
 					>
 						<Text>
-							<Color bgKeyword='blue'>
+							<Color bgKeyword="blue">
 								(ℹ)
 							</Color>
 						</Text>
 						<Text>
 							{children.map((line, lineIndex) => {
 								if (lineIndex === 0) {
-									return ` ${line}\n`
+									return ` ${line}\n`;
 								}
-								return `    ${line}`
+
+								return `    ${line}`;
 							}).join('')}
 						</Text>
 					</Box>
@@ -67,24 +68,22 @@ const InputStep = ({
 				</Text>
 				<Text>{`${label}: `}</Text>
 				<Text>
-					{(
-						(value.length > 0)
-						? (
+					{((value.length > 0) ?
+						(
 							<Color blueBright>
 								{value}
 							</Color>
-						)
-						: (
+						) :
+						(
 							<Color gray>
 								{fallback}
 							</Color>
-						)
-					)}
+						))}
 				</Text>
 			</Box>
 		)}
-	</React.Fragment>
-)
+	</>
+);
 
 InputStep.propTypes = {
 	state: oneOf(Object.values(stepStates)),
@@ -95,6 +94,6 @@ InputStep.propTypes = {
 	onSubmit: func,
 	validationError: oneOfType([string, bool]),
 	children: node
-}
+};
 
 module.exports = InputStep;
