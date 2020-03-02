@@ -1,11 +1,10 @@
 const React = require('react');
 const {string, func, oneOf} = require('prop-types');
-const {validateScopeName} = require('./utility')
-const {Text} = require('ink');
-const {stepStates} = require('./enum')
+const {validateScopeName} = require('./utility');
+const {stepStates} = require('./enum');
 const importJsx = require('import-jsx');
 
-const InputStep = importJsx('./inputStep.js')
+const InputStep = importJsx('./input-step.js');
 
 const {useEffect, useState} = React;
 
@@ -17,7 +16,7 @@ const ScopeNameInput = ({
 	scopeName,
 	onSetScopeName
 }) => {
-	const [isDirty, onSetIsDirty] = useState(false)
+	const [isDirty, onSetIsDirty] = useState(false);
 	useEffect(() => {
 		if (state === current) {
 			onSetIsDirty(false);
@@ -25,13 +24,16 @@ const ScopeNameInput = ({
 	}, [state]);
 	const [validationErrors, onSetValidationErrors] = useState();
 	useEffect(() => {
-		onSetValidationErrors(validateScopeName(scopeName))
-	}, [scopeName])
+		onSetValidationErrors(validateScopeName(scopeName));
+	}, [scopeName]);
 	return (
 		<InputStep
 			state={state}
-			label='npm package scope name'
+			label="npm package scope name"
 			value={scopeName}
+			validationError={(isDirty && validationErrors) && (
+				validationErrors[0]
+			)}
 			onChange={onSetScopeName}
 			onSubmit={() => {
 				onSetIsDirty(true);
@@ -39,21 +41,18 @@ const ScopeNameInput = ({
 					onNextStep();
 				}
 			}}
-			validationError={(isDirty && validationErrors) && (
-				validationErrors[0]
-			)}
 		>
 			{'Need help? Read more about scopes in the npm documentation:'}
 			{'https://docs.npmjs.com/about-scopes'}
 		</InputStep>
-	)
-}
+	);
+};
 
 ScopeNameInput.propTypes = {
 	onNextStep: func,
 	state: oneOf(Object.values(stepStates)),
 	scopeName: string,
 	onSetScopeName: func
-}
+};
 
 module.exports = ScopeNameInput;
