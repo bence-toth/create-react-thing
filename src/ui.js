@@ -8,6 +8,7 @@ const Header = importJsx('./header');
 const PackageNameInput = importJsx('./packageNameInput');
 const ScopedPackageSelect = importJsx('./scopedPackageSelect');
 const ScopeNameInput = importJsx('./scopeNameInput');
+const DescriptionInput = importJsx('./descriptionInput');
 
 const licenses = {
 	mit: 'mit',
@@ -50,11 +51,11 @@ const App = ({
 		onSetScopeName
 	] = useState('');
 
-	// // Step 4
-	// const [
-	// 	description,
-	// 	onSetDescription
-	// ] = useState('');
+	// Step 4: description
+	const [
+		description,
+		onSetDescription
+	] = useState('');
 
 	// // Step 5
 	// const [
@@ -150,6 +151,19 @@ const App = ({
 					onSetScopeName={onSetScopeName}
 				/>
 			)}
+			<DescriptionInput
+				description={description}
+				state={(() => {
+					if (step === 4) {
+						return DescriptionInput.states.current
+					}
+					if (step > 4) {
+						return DescriptionInput.states.completed
+					}
+				})()}
+				onSetDescription={onSetDescription}
+				onSetStep={onSetStep}
+			/>
 		</Box>
 	);
 }
