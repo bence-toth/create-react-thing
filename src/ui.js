@@ -5,6 +5,7 @@ const {Box, Text, Color} = require('ink');
 const {useNpmUsername} = require('./hooks');
 const importJsx = require('import-jsx');
 
+const Header = importJsx('./header');
 const PackageNameInput = importJsx('./packageNameInput');
 const ScopedPackageSelect = importJsx('./scopedPackageSelect');
 const ScopeNameInput = importJsx('./scopeNameInput');
@@ -98,21 +99,14 @@ const App = ({
 			paddingY={1}
 			paddingX={2}
 		>
-			<Text>Current step: {step}</Text>
-			<Box paddingBottom={1}>
-				<Text>
-					{'Creating React library '}
-					{(packageName.length > 0) && (
-						<Color green>
-							{(
-								(isScoped && (scopeName.length > 0))
-									? `${scopeName}/${packageName}`
-									: packageName
-							)}
-						</Color>
-					)}
-				</Text>
-			</Box>
+			<Header
+				step={step}
+				packageName={(
+					(isScoped && (scopeName.length > 0))
+						? `${scopeName}/${packageName}`
+						: packageName
+				)}
+			/>
 			<PackageNameInput
 				packageName={packageName}
 				state={(() => {
