@@ -6,7 +6,7 @@ const Header = ({
 	step,
 	packageName
 }) => (
-	<React.Fragment>
+	<>
 		<Text>Current step: {step}</Text>
 		<Box paddingBottom={1}>
 			<Text>
@@ -18,7 +18,7 @@ const Header = ({
 				)}
 			</Text>
 		</Box>
-	</React.Fragment>
+	</>
 );
 
 Header.propTypes = {
