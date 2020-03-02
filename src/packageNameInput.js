@@ -2,7 +2,6 @@ const React = require('react');
 const {string, func, oneOf} = require('prop-types');
 const {validatePackageName} = require('./utility');
 const {stepStates} = require('./enum');
-const {Text} = require('ink');
 const importJsx = require('import-jsx');
 
 const InputStep = importJsx('./inputStep.js')
