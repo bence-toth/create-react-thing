@@ -10,33 +10,39 @@ const Select = ({
 }) => {
 	useInput((_, key) => {
 		if (key.downArrow) {
-			const currentIndex = options.findIndex(({value: optionValue}) => value === optionValue)
+			const currentIndex = options
+				.findIndex(({value: optionValue}) => value === optionValue);
 			if ((currentIndex + 1) === options.length) {
-				onChange(options[0].value)
+				onChange(options[0].value);
 			}
 			else {
-				onChange(options[currentIndex + 1].value)
+				onChange(options[currentIndex + 1].value);
 			}
 		}
+
 		if (key.upArrow) {
-			const currentIndex = options.findIndex(({value: optionValue}) => value === optionValue)
+			const currentIndex = options
+				.findIndex(({
+					value: optionValue
+				}) => value === optionValue);
 			if (currentIndex === 0) {
-				onChange(options[options.length - 1].value)
+				onChange(options[options.length - 1].value);
 			}
 			else {
-				onChange(options[currentIndex - 1].value)
+				onChange(options[currentIndex - 1].value);
 			}
 		}
+
 		if (key.return) {
 			onSelect(value);
 		}
 	});
 	return (
 		<Box flexDirection="column">
-			{options.map((option) => (
+			{options.map(option => (
 				<Box
-					flexDirection="row"
 					key={option.value}
+					flexDirection="row"
 				>
 					<Text>
 						<Color blueBright>
@@ -48,8 +54,8 @@ const Select = ({
 				</Box>
 			))}
 		</Box>
-	)
-}
+	);
+};
 
 Select.propTypes = {
 	options: arrayOf(shape({
@@ -59,6 +65,6 @@ Select.propTypes = {
 	value: oneOfType([string, bool, number]),
 	onChange: func,
 	onSelect: func
-}
+};
 
 module.exports = Select;
