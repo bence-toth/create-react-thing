@@ -1,7 +1,7 @@
 const React = require('react');
 const {useState} = React;
 const {string, object} = require('prop-types');
-const {Box} = require('ink');
+const {Box, Text, Color} = require('ink');
 const importJsx = require('import-jsx');
 
 const Header = importJsx('./header');
@@ -173,6 +173,18 @@ const App = ({
 					onSetStep(5)
 				}}
 			/>
+			<Box paddingTop={2}>
+				<Text>
+					<Color blueBright>
+						{JSON.stringify({
+							packageName,
+							isScoped,
+							scopeName,
+							description
+						})}
+					</Color>
+				</Text>
+			</Box>
 		</Box>
 	);
 }
