@@ -1,19 +1,14 @@
 const React = require('react');
 const {string, func, oneOf} = require('prop-types');
 const {validateScopeName} = require('./utility')
+const {stepStates} = require('./enum')
 const importJsx = require('import-jsx');
 
 const InputStep = importJsx('./inputStep.js')
 
 const {useEffect, useState} = React;
 
-const states = {
-	upcoming: 'upcoming',
-	current: 'current',
-	completed: 'completed'
-};
-
-const {current} = states;
+const {current} = stepStates;
 
 const ScopeNameInput = ({
 	onNextStep,
@@ -50,11 +45,9 @@ const ScopeNameInput = ({
 	)
 }
 
-ScopeNameInput.states = states
-
 ScopeNameInput.propTypes = {
 	onNextStep: func,
-	state: oneOf(Object.values(ScopeNameInput.states)),
+	state: oneOf(Object.values(stepStates)),
 	scopeName: string,
 	onSetScopeName: func
 }

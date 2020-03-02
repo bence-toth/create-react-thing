@@ -1,10 +1,5 @@
 const {useState, useEffect} = require('react');
-const execa = require('execa');
-
-const onGetLoggedInNpmUsername = async () => {
-	const {stdout} = await execa('npm', ['whoami']);
-	return stdout;
-};
+const {getLoggedInNpmUsername} = require('./utility');
 
 const useNpmUsername = () => {
   // Initialize it with empty string
@@ -12,7 +7,7 @@ const useNpmUsername = () => {
 
   // See if a user is logged in
   useEffect(() => {
-		onGetLoggedInNpmUsername()
+		getLoggedInNpmUsername()
 			.then(username => {
 				if (username.length > 0) {
 					onSetNpmUsername(username);

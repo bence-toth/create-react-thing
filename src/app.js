@@ -2,6 +2,7 @@ const React = require('react');
 const {useState} = React;
 const {string, object} = require('prop-types');
 const {Box, Text, Color} = require('ink');
+const {licenses, codeOfConducts, stepStates} = require('./enum')
 const importJsx = require('import-jsx');
 
 const Header = importJsx('./header');
@@ -10,15 +11,7 @@ const ScopedPackageSelect = importJsx('./scopedPackageSelect');
 const ScopeNameInput = importJsx('./scopeNameInput');
 const DescriptionInput = importJsx('./descriptionInput');
 
-const licenses = {
-	mit: 'mit',
-	none: 'none'
-}
-
-const codeOfConducts = {
-	contributorCovenant: 'contributorCovenant',
-	none: 'none'
-}
+const {current, completed} = stepStates;
 
 const App = ({
 	packageName: commandLineArgumentPackageName = '',
@@ -106,10 +99,10 @@ const App = ({
 				packageName={packageName}
 				state={(() => {
 					if (step === 1) {
-						return PackageNameInput.states.current
+						return current
 					}
 					if (step > 1) {
-						return PackageNameInput.states.completed
+						return completed
 					}
 				})()}
 				onSetPackageName={onSetPackageName}
@@ -126,10 +119,10 @@ const App = ({
 				isScoped={isScoped}
 				state={(() => {
 					if (step === 2) {
-						return ScopedPackageSelect.states.current
+						return current
 					}
 					if (step > 2) {
-						return ScopedPackageSelect.states.completed
+						return completed
 					}
 				})()}
 				onSetIsScoped={onSetIsScoped}
@@ -148,10 +141,10 @@ const App = ({
 					}}
 					state={(() => {
 						if (step === 3) {
-							return ScopeNameInput.states.current
+							return current
 						}
 						if (step > 3) {
-							return ScopeNameInput.states.completed
+							return completed
 						}
 					})()}
 					scopeName={scopeName}
@@ -162,10 +155,10 @@ const App = ({
 				description={description}
 				state={(() => {
 					if (step === 4) {
-						return DescriptionInput.states.current
+						return current
 					}
 					if (step > 4) {
-						return DescriptionInput.states.completed
+						return completed
 					}
 				})()}
 				onSetDescription={onSetDescription}

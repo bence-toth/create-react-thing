@@ -2,24 +2,19 @@ const React = require('react');
 const {bool, func, oneOf} = require('prop-types');
 const {Box, Text, Color} = require('ink');
 const {useNpmUsername} = require('./hooks')
+const {stepStates} = require('./enum')
 const importJsx = require('import-jsx');
 
 const Select = importJsx('./select');
 
-const states = {
-	upcoming: 'upcoming',
-	current: 'current',
-	completed: 'completed'
-};
-
-const {current, completed} = states;
+const {current, completed} = stepStates;
 
 const options = [{
 	label: 'Yes',
-	value: 'true'
+	value: true
 }, {
-	label: 'Second',
-	value: 'false'
+	label: 'No',
+	value: false
 }];
 
 const ScopedPackageSelect = ({
@@ -44,13 +39,7 @@ const ScopedPackageSelect = ({
 						paddingLeft={2}
 					>
 						<Select
-							options={[{
-								label: 'Yes',
-								value: true
-							}, {
-								label: 'No',
-								value: false
-							}]}
+							options={options}
 							value={isScoped}
 							onChange={onSetIsScoped}
 							onSelect={() => {
@@ -91,11 +80,9 @@ const ScopedPackageSelect = ({
 	)
 }
 
-ScopedPackageSelect.states = states
-
 ScopedPackageSelect.propTypes = {
 	isScoped: bool,
-	state: oneOf(Object.values(states)),
+	state: oneOf(Object.values(stepStates)),
 	onNextStep: func,
 	onSkipScopeNameStep: func,
 	onSetScopeName: func,

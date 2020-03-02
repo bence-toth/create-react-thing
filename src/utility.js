@@ -1,3 +1,4 @@
+const execa = require('execa');
 const validateNpmPackageName = require('validate-npm-package-name');
 
 const capitalizeString = string => {
@@ -50,7 +51,13 @@ const validateScopeName = packageName => {
 	)
 }
 
+const getLoggedInNpmUsername = async () => {
+	const {stdout} = await execa('npm', ['whoami']);
+	return stdout;
+};
+
 module.exports = {
 	validatePackageName,
-	validateScopeName
+	validateScopeName,
+	getLoggedInNpmUsername
 };

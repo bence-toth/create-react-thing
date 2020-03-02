@@ -2,17 +2,12 @@ const React = require('react');
 const {string, func, oneOf, oneOfType, bool} = require('prop-types');
 const {Box, Text, Color} = require('ink');
 const {default: Input} = require('ink-text-input');
+const {stepStates} = require('./enum')
 const importJsx = require('import-jsx');
 
 const ValidationError = importJsx('./validationError');
 
-const states = {
-	upcoming: 'upcoming',
-	current: 'current',
-	completed: 'completed'
-};
-
-const {current, completed} = states;
+const {current, completed} = stepStates;
 
 const InputStep = ({
 	state,
@@ -70,10 +65,8 @@ const InputStep = ({
 	</React.Fragment>
 )
 
-InputStep.states = states
-
 InputStep.propTypes = {
-	state: oneOf(Object.values(InputStep.states)),
+	state: oneOf(Object.values(stepStates)),
 	label: string,
 	value: string,
 	fallback: string,
