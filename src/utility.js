@@ -69,9 +69,47 @@ const getLoggedInNpmUsername = async () => {
   return stdout
 }
 
+const validateAuthorName = authorName => {
+  if (authorName.length === 0) {
+    return [
+      'Author name must not be blank'
+    ]
+  }
+  return undefined
+}
+
+const validateAuthorEmail = authorEmail => {
+  const emailRegex = (
+    // eslint-disable-next-line optimize-regex/optimize-regex, unicorn/regex-shorthand
+    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
+  )
+  if (!emailRegex.test(authorEmail)) {
+    return [
+      'This does not look like a valid email address'
+    ]
+  }
+  return undefined
+}
+
+const validateAuthorWebsite = authorEmail => {
+  const urlRegex = (
+    // eslint-disable-next-line optimize-regex/optimize-regex, unicorn/regex-shorthand, no-useless-escape
+    /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
+  )
+  if (!urlRegex.test(authorEmail)) {
+    return [
+      'This does not look like a valid URL'
+    ]
+  }
+  return undefined
+}
+
 module.exports = {
   validatePackageName,
   validateScopeName,
   validateGitRepoUrl,
+  validateAuthorName,
+  validateAuthorEmail,
+  validateAuthorWebsite,
   getLoggedInNpmUsername
 }
