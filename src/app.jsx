@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 const React = require('react')
 
 const {useState} = React
@@ -32,6 +33,20 @@ const getStepState = ({
   }
   return upcoming
 }
+
+const getStepProps = ({
+  currentStep,
+  stepNumber,
+  onSetStep
+}) => ({
+  state: getStepState({
+    currentStep,
+    stepNumber
+  }),
+  onNextStep: () => {
+    onSetStep(stepNumber + 1)
+  }
+})
 
 const App = ({
   packageName: commandLineArgumentPackageName = ''
@@ -128,113 +143,95 @@ const App = ({
       />
       <PackageNameInput
         packageName={packageName}
-        state={getStepState({
-          currentStep: step,
-          stepNumber: 1
-        })}
         onSetPackageName={onSetPackageName}
-        onNextStep={() => {
-          onSetStep(2)
-        }}
         onSkipScopeSteps={() => {
           onSetStep(4)
         }}
         onSetIsScoped={onSetIsScoped}
         onSetScopeName={onSetScopeName}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 1,
+          onSetStep
+        })}
       />
       <ScopedPackageSelect
         isScoped={isScoped}
-        state={getStepState({
-          currentStep: step,
-          stepNumber: 2
-        })}
         onSetIsScoped={onSetIsScoped}
         onSetScopeName={onSetScopeName}
-        onNextStep={() => {
-          onSetStep(3)
-        }}
         onSkipScopeNameStep={() => {
           onSetStep(4)
         }}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 2,
+          onSetStep
+        })}
       />
       {isScoped && (
       <ScopeNameInput
-        state={getStepState({
-          currentStep: step,
-          stepNumber: 3
-        })}
         scopeName={scopeName}
-        onNextStep={() => {
-          onSetStep(4)
-        }}
         onSetScopeName={onSetScopeName}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 3,
+          onSetStep
+        })}
       />
       )}
       <DescriptionInput
         description={description}
-        state={getStepState({
-          currentStep: step,
-          stepNumber: 4
-        })}
         onSetDescription={onSetDescription}
-        onNextStep={() => {
-          onSetStep(5)
-        }}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 4,
+          onSetStep
+        })}
       />
       <KeywordsInput
         keywords={keywords}
-        state={getStepState({
-          currentStep: step,
-          stepNumber: 5
-        })}
         onSetKeywords={onSetKeywords}
-        onNextStep={() => {
-          onSetStep(6)
-        }}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 5,
+          onSetStep
+        })}
       />
       <GitRepoUrlInput
-        onNextStep={() => {
-          onSetStep(7)
-        }}
-        state={getStepState({
-          currentStep: step,
-          stepNumber: 6
-        })}
         gitRepoUrl={gitRepoUrl}
         onSetGitRepoUrl={onSetGitRepoUrl}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 6,
+          onSetStep
+        })}
       />
       <AuthorNameInput
-        onNextStep={() => {
-          onSetStep(8)
-        }}
-        state={getStepState({
-          currentStep: step,
-          stepNumber: 7
-        })}
         authorName={authorName}
         onSetAuthorName={onSetAuthorName}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 7,
+          onSetStep
+        })}
       />
       <AuthorEmailInput
-        onNextStep={() => {
-          onSetStep(9)
-        }}
-        state={getStepState({
-          currentStep: step,
-          stepNumber: 8
-        })}
         authorEmail={authorEmail}
         onSetAuthorEmail={onSetAuthorEmail}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 8,
+          onSetStep
+        })}
       />
       <AuthorWebsiteInput
-        onNextStep={() => {
-          onSetStep(10)
-        }}
-        state={getStepState({
-          currentStep: step,
-          stepNumber: 9
-        })}
         authorWebsite={authorWebsite}
         onSetAuthorWebsite={onSetAuthorWebsite}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 9,
+          onSetStep
+        })}
       />
       <Box paddingTop={2}>
         <Text>
@@ -244,7 +241,11 @@ const App = ({
               isScoped,
               scopeName,
               description,
-              keywords
+              keywords,
+              gitRepoUrl,
+              authorName,
+              authorEmail,
+              authorWebsite
             })}
           </Color>
         </Text>
