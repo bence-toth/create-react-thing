@@ -5,7 +5,7 @@ const {default: Input} = require('ink-text-input');
 const {validateScopeName} = require('./utility')
 const importJsx = require('import-jsx');
 
-const ValidationError = importJsx('./validationError');
+const InputStep = importJsx('./inputStep.js')
 
 const {useEffect, useState} = React;
 
@@ -34,44 +34,21 @@ const ScopeNameInput = ({
 		onSetValidationErrors(validateScopeName(scopeName))
 	}, [scopeName])
 	return (
-		<React.Fragment>
-			{(state === current) && (
-				<Box flexDirection="column">
-					<Box flexDirection="row">
-						<Text>- </Text>
-						<Text bold>npm package scope name: </Text>
-						<Input
-							value={scopeName}
-							onChange={value => {
-								onSetScopeName(value);
-							}}
-							onSubmit={() => {
-								onSetIsDirty(true);
-								if (!validationErrors) {
-									onSetStep(4);
-								}
-							}}
-						/>
-					</Box>
-					{isDirty && validationErrors && (
-						<ValidationError>
-							{validationErrors[0]}
-						</ValidationError>
-					)}
-				</Box>
+		<InputStep
+			state={state}
+			label='npm package scope name'
+			value={scopeName}
+			onChange={onSetScopeName}
+			onSubmit={() => {
+				onSetIsDirty(true);
+				if (!validationErrors) {
+					onSetStep(4);
+				}
+			}}
+			validationError={(isDirty && validationErrors) && (
+				validationErrors[0]
 			)}
-			{(state === completed) && (
-				<Box flexDirection="row">
-					<Text>
-						<Color green>
-							{'✓ '}
-						</Color>
-					</Text>
-					<Text>npm package scope name: </Text>
-					<Text>{scopeName}</Text>
-				</Box>
-			)}
-		</React.Fragment>
+		/>
 	)
 }
 
