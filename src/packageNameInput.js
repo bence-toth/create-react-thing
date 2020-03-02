@@ -2,7 +2,7 @@ const React = require('react');
 const {string, func, oneOf} = require('prop-types');
 const {Box, Text, Color} = require('ink');
 const {default: Input} = require('ink-text-input');
-const {capitalizeString, validatePackageName} = require('./utility')
+const {validatePackageName} = require('./utility')
 
 const {useEffect, useState} = React;
 
@@ -71,7 +71,7 @@ const PackageNameInput = ({
 									[!]
 								</Color>
 								{' '}
-								{capitalizeString(validationErrors[0])}
+								{validationErrors[0]}
 							</Text>
 						</Box>
 					)}
