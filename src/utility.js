@@ -91,11 +91,25 @@ const validateAuthorEmail = authorEmail => {
   return undefined
 }
 
+const validateAuthorWebsite = authorEmail => {
+  const urlRegex = (
+    // eslint-disable-next-line optimize-regex/optimize-regex, unicorn/regex-shorthand
+    /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
+  )
+  if (!urlRegex.test(authorEmail)) {
+    return [
+      'This does not look like a valid URL'
+    ]
+  }
+  return undefined
+}
+
 module.exports = {
   validatePackageName,
   validateScopeName,
   validateGitRepoUrl,
   validateAuthorName,
   validateAuthorEmail,
+  validateAuthorWebsite,
   getLoggedInNpmUsername
 }
