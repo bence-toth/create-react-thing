@@ -7,6 +7,7 @@ const importJsx = require('import-jsx');
 
 const PackageNameInput = importJsx('./packageNameInput');
 const ScopedPackageSelect = importJsx('./scopedPackageSelect');
+const ScopeNameInput = importJsx('./scopeNameInput');
 
 const licenses = {
 	mit: 'mit',
@@ -138,6 +139,22 @@ const App = ({
 				})()}
 				onSetIsScoped={onSetIsScoped}
 				onSetStep={onSetStep}
+			/>
+			<ScopeNameInput
+				onSetStep={onSetStep}
+				state={(() => {
+					if (step < 3) {
+						return ScopeNameInput.states.upcoming
+					}
+					if (step === 3) {
+						return ScopeNameInput.states.current
+					}
+					if (step > 3) {
+						return ScopeNameInput.states.completed
+					}
+				})()}
+				scopeName={scopeName}
+				onSetScopeName={onSetScopeName}
 			/>
 			{(Object.values(flags).length > 0) && (
 				<>
