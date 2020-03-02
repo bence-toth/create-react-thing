@@ -32,6 +32,7 @@ const App = ({
 	// Step 1: package name
 	// Step 2: is it a scoped package
 	// Step 3: scope name
+	// Step 4: description
 
 	// Step 1: package name
 	const [
@@ -112,16 +113,18 @@ const App = ({
 					}
 				})()}
 				onSetPackageName={onSetPackageName}
-				onSetStep={onSetStep}
+				onNextStep={() => {
+					onSetStep(2)
+				}}
+				onSkipScopeSteps={() => {
+					onSetStep(4)
+				}}
 				onSetIsScoped={onSetIsScoped}
 				onSetScopeName={onSetScopeName}
 			/>
 			<ScopedPackageSelect
 				isScoped={isScoped}
 				state={(() => {
-					if (step < 2) {
-						return ScopedPackageSelect.states.upcoming
-					}
 					if (step === 2) {
 						return ScopedPackageSelect.states.current
 					}
@@ -131,15 +134,19 @@ const App = ({
 				})()}
 				onSetIsScoped={onSetIsScoped}
 				onSetScopeName={onSetScopeName}
-				onSetStep={onSetStep}
+				onNextStep={() => {
+					onSetStep(3)
+				}}
+				onSkipScopeNameStep={() => {
+					onSetStep(4)
+				}}
 			/>
 			{isScoped && (
 				<ScopeNameInput
-					onSetStep={onSetStep}
+					onNextStep={() => {
+						onSetStep(4)
+					}}
 					state={(() => {
-						if (step < 3) {
-							return ScopeNameInput.states.upcoming
-						}
 						if (step === 3) {
 							return ScopeNameInput.states.current
 						}
@@ -162,7 +169,9 @@ const App = ({
 					}
 				})()}
 				onSetDescription={onSetDescription}
-				onSetStep={onSetStep}
+				onNextStep={() => {
+					onSetStep(5)
+				}}
 			/>
 		</Box>
 	);

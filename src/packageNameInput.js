@@ -16,7 +16,8 @@ const states = {
 const {current, completed} = states;
 
 const PackageNameInput = ({
-	onSetStep,
+	onSkipScopeSteps,
+	onNextStep,
 	state,
 	packageName,
 	onSetPackageName,
@@ -49,10 +50,10 @@ const PackageNameInput = ({
 							= packageName.split('/');
 						onSetPackageName(actualPackageName)
 						onSetScopeName(scopeName);
-						onSetStep(4);
+						onSkipScopeSteps();
 					}
 					else {
-						onSetStep(2);
+						onNextStep();
 					}
 				}
 			}}
@@ -66,7 +67,8 @@ const PackageNameInput = ({
 PackageNameInput.states = states
 
 PackageNameInput.propTypes = {
-	onSetStep: func,
+	onSkipScopeSteps: func,
+	onNextStep: func,
 	state: oneOf(Object.values(PackageNameInput.states)),
 	packageName: string,
 	onSetPackageName: func,

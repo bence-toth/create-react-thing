@@ -26,7 +26,8 @@ const ScopedPackageSelect = ({
 	isScoped,
 	onSetIsScoped,
 	onSetScopeName,
-	onSetStep,
+	onNextStep,
+	onSkipScopeNameStep,
 	state
 }) => {
 	const npmUsername = useNpmUsername()
@@ -60,10 +61,10 @@ const ScopedPackageSelect = ({
 											: ''
 									)
 									onSetScopeName(suggestedScopeName);
-									onSetStep(3);
+									onNextStep();
 								}
 								else {
-									onSetStep(4);
+									onSkipScopeNameStep();
 								}
 							}}
 						/>
@@ -91,7 +92,8 @@ ScopedPackageSelect.states = states
 ScopedPackageSelect.propTypes = {
 	isScoped: bool,
 	state: oneOf(Object.values(states)),
-	onSetStep: func,
+	onNextStep: func,
+	onSkipScopeNameStep: func,
 	onSetScopeName: func,
 	onSetIsScoped: func
 }

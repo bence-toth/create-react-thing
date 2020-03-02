@@ -11,7 +11,7 @@ const states = {
 };
 
 const DescriptionInput = ({
-	onSetStep,
+	onNextStep,
 	state,
 	description,
 	onSetDescription
@@ -21,9 +21,7 @@ const DescriptionInput = ({
 		label='description'
 		value={description}
 		onChange={onSetDescription}
-		onSubmit={() => {
-			onSetStep(5);
-		}}
+		onSubmit={onNextStep}
 	/>
 )
 

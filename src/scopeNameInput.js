@@ -16,7 +16,7 @@ const states = {
 const {current} = states;
 
 const ScopeNameInput = ({
-	onSetStep,
+	onNextStep,
 	state,
 	scopeName,
 	onSetScopeName
@@ -40,7 +40,7 @@ const ScopeNameInput = ({
 			onSubmit={() => {
 				onSetIsDirty(true);
 				if (!validationErrors) {
-					onSetStep(4);
+					onNextStep();
 				}
 			}}
 			validationError={(isDirty && validationErrors) && (
@@ -53,7 +53,7 @@ const ScopeNameInput = ({
 ScopeNameInput.states = states
 
 ScopeNameInput.propTypes = {
-	onSetStep: func,
+	onNextStep: func,
 	state: oneOf(Object.values(ScopeNameInput.states)),
 	scopeName: string,
 	onSetScopeName: func
