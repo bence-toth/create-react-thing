@@ -50,6 +50,20 @@ const validateScopeName = packageName => {
   )
 }
 
+const validateGitRepoUrl = url => {
+  // Must be like: `https://github.com/{USERNAME}/{REPO}`
+  const gitHubRepoRegex = (
+    // eslint-disable-next-line optimize-regex/optimize-regex, unicorn/regex-shorthand
+    /^https:\/\/github\.com\/([\w\d-_]+)\/([\w\d-_]+)$/
+  )
+  if (!gitHubRepoRegex.test(url)) {
+    return [
+      'This does not look like a valid GitHub repository URL'
+    ]
+  }
+  return undefined
+}
+
 const getLoggedInNpmUsername = async () => {
   const {stdout} = await execa('npm', ['whoami'])
   return stdout
@@ -58,5 +72,6 @@ const getLoggedInNpmUsername = async () => {
 module.exports = {
   validatePackageName,
   validateScopeName,
+  validateGitRepoUrl,
   getLoggedInNpmUsername
 }
