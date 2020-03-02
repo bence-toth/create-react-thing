@@ -16,23 +16,36 @@ const validatePackageName = packageName => {
 };
 
 const validateScopeName = packageName => {
-	const {errors: npmErrors} = validatePackageName(packageName) || []
+	const {errors: npmErrors} = validateNpmPackageName(
+		packageName.substring(1)
+	)
+	const updatedNpmErrors = npmErrors && npmErrors.map(error => {
+		if (error === 'name length must be greater than zero') {
+			return 'name length must be greater than one'
+		}
+		return error
+	})
 	const errors = [
 		...(
+			(packageName.length === 0)
+				? ['name length must be greater than zero']
+				: []
+		),
+		...(
 			(packageName && (packageName.charAt(0) !== '@'))
-				? (['Name must start with an @'])
+				? (['name must start with an @'])
 				: []
 		),
 		...(
 			(packageName && packageName.includes('/'))
-				? (['Name must not contain a slash'])
+				? (['name must not contain a /'])
 				: []
 		),
-		...(npmErrors || [])
+		...(updatedNpmErrors || [])
 	]
 	return (
 		(errors.length > 0)
-			? errors
+			? errors.map(capitalizeString)
 			: undefined
 	)
 }
