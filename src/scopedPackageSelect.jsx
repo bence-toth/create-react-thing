@@ -82,20 +82,20 @@ const ScopedPackageSelect = ({
       </Box>
       )}
       {(state === completed) && (
-      <Box flexDirection='row'>
-        <Text>
-          <Color greenBright>
-            {'✓ '}
-          </Color>
-        </Text>
-        <Text>Is this a scoped package?</Text>
-        {' '}
-        <Text>
-          <Color blueBright>
-            {isScoped ? 'Yes' : 'No'}
-          </Color>
-        </Text>
-      </Box>
+        <Box flexDirection='row'>
+          <Text>
+            <Color greenBright>
+              {'✓ '}
+            </Color>
+          </Text>
+          <Text>Is this a scoped package?</Text>
+          {' '}
+          <Text>
+            <Color blueBright>
+              {isScoped ? 'Yes' : 'No'}
+            </Color>
+          </Text>
+        </Box>
       )}
     </>
   )
