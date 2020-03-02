@@ -3,9 +3,9 @@ const {string, func, oneOf, arrayOf} = require('prop-types');
 const {stepStates} = require('./enum');
 const importJsx = require('import-jsx');
 
-const InputStep = importJsx('./inputStep.js')
+const InputStep = importJsx('./input-step.js');
 
-const {useEffect, useState} = React;
+const {useState} = React;
 
 const {current} = stepStates;
 
@@ -15,19 +15,19 @@ const KeywordsInput = ({
 	keywords,
 	onSetKeywords
 }) => {
-	const [keywordsInput, onSetKeywordsInput] = useState('')
+	const [keywordsInput, onSetKeywordsInput] = useState('');
 	return (
 		<InputStep
 			state={state}
-			label='Keyword (comma-separated)'
+			label="Keyword (comma-separated)"
 			value={(
-				(state === current)
-					? keywordsInput
-					: keywords.join(', ')
+				(state === current) ?
+					keywordsInput :
+					keywords.join(', ')
 			)}
-			fallback='blank'
+			fallback="blank"
 			onChange={newKeywordsValue => {
-				onSetKeywordsInput(newKeywordsValue)
+				onSetKeywordsInput(newKeywordsValue);
 				onSetKeywords(
 					newKeywordsValue
 						.toLowerCase()
@@ -37,7 +37,7 @@ const KeywordsInput = ({
 						.filter((keyword, keywordIndex, allKeywords) => (
 							allKeywords.indexOf(keyword) === keywordIndex
 						))
-				)
+				);
 			}}
 			onSubmit={() => {
 				onNextStep();
@@ -46,14 +46,14 @@ const KeywordsInput = ({
 			{'Keywords help people discover your package'}
 			{'as it’s listed in npm search.'}
 		</InputStep>
-	)
-}
+	);
+};
 
 KeywordsInput.propTypes = {
 	onNextStep: func,
 	state: oneOf(Object.values(stepStates)),
 	keywords: arrayOf(string),
 	onSetKeywords: func
-}
+};
 
 module.exports = KeywordsInput;
