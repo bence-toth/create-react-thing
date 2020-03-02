@@ -1,8 +1,7 @@
 const React = require('react');
 const {useState} = React;
-const {string, object, func, oneOf} = require('prop-types');
-const {Box, Text, Color} = require('ink');
-const {useNpmUsername} = require('./hooks');
+const {string, object} = require('prop-types');
+const {Box} = require('ink');
 const importJsx = require('import-jsx');
 
 const Header = importJsx('./header');
@@ -87,12 +86,6 @@ const App = ({
 	// 	onSetCodeOfConduct
 	// ] = useState(codeOfConducts.contributorCovenant);
 
-	// // Step 10
-	// const [
-	// 	npmUsername,
-	// 	onSetNpmUsername
-	// ] = useNpmUsername();
-
 	return (
 		<Box
 			flexDirection="column"
@@ -136,6 +129,7 @@ const App = ({
 					}
 				})()}
 				onSetIsScoped={onSetIsScoped}
+				onSetScopeName={onSetScopeName}
 				onSetStep={onSetStep}
 			/>
 			{isScoped && (
