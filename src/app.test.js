@@ -2,7 +2,7 @@ const React = require('react');
 const chalk = require('chalk');
 const test = require('ava');
 const {render} = require('ink-testing-library');
-const App = require('./ui');
+const App = require('./app');
 
 test('show splash', t => {
 	const {lastFrame} = render((
