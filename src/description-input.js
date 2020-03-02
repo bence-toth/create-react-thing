@@ -1,9 +1,9 @@
 const React = require('react');
 const {string, func, oneOf} = require('prop-types');
-const {stepStates} = require('./enum')
+const {stepStates} = require('./enum');
 const importJsx = require('import-jsx');
 
-const InputStep = importJsx('./inputStep.js')
+const InputStep = importJsx('./input-step.js');
 
 const DescriptionInput = ({
 	onNextStep,
@@ -13,22 +13,22 @@ const DescriptionInput = ({
 }) => (
 	<InputStep
 		state={state}
-		label='Description'
+		label="Description"
 		value={description}
-		fallback='blank'
+		fallback="blank"
 		onChange={onSetDescription}
 		onSubmit={onNextStep}
 	>
 		{'This helps people discover your package,'}
 		{'as it’s listed in npm search.'}
 	</InputStep>
-)
+);
 
 DescriptionInput.propTypes = {
-	onSetStep: func,
+	onNextStep: func,
 	state: oneOf(Object.values(stepStates)),
 	description: string,
 	onSetDescription: func
-}
+};
 
 module.exports = DescriptionInput;
