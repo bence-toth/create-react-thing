@@ -78,10 +78,24 @@ const validateAuthorName = authorName => {
   return undefined
 }
 
+const validateAuthorEmail = authorEmail => {
+  const emailRegex = (
+    // eslint-disable-next-line optimize-regex/optimize-regex, unicorn/regex-shorthand
+    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
+  )
+  if (!emailRegex.test(authorEmail)) {
+    return [
+      'This does not look like a valid email address'
+    ]
+  }
+  return undefined
+}
+
 module.exports = {
   validatePackageName,
   validateScopeName,
   validateGitRepoUrl,
   validateAuthorName,
+  validateAuthorEmail,
   getLoggedInNpmUsername
 }
