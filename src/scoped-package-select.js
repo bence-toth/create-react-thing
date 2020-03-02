@@ -1,8 +1,8 @@
 const React = require('react');
 const {bool, func, oneOf} = require('prop-types');
 const {Box, Text, Color} = require('ink');
-const {useNpmUsername} = require('./hooks')
-const {stepStates} = require('./enum')
+const {useNpmUsername} = require('./hooks');
+const {stepStates} = require('./enum');
 const importJsx = require('import-jsx');
 
 const Select = importJsx('./select');
@@ -25,9 +25,9 @@ const ScopedPackageSelect = ({
 	onSkipScopeNameStep,
 	state
 }) => {
-	const npmUsername = useNpmUsername()
+	const npmUsername = useNpmUsername();
 	return (
-		<React.Fragment>
+		<>
 			{(state === current) && (
 				<Box flexDirection="column">
 					<Box flexDirection="row">
@@ -45,10 +45,10 @@ const ScopedPackageSelect = ({
 							onSelect={() => {
 								if (isScoped) {
 									const suggestedScopeName = (
-										(npmUsername.length > 0)
-											? `@${npmUsername}`
-											: ''
-									)
+										(npmUsername.length > 0) ?
+											`@${npmUsername}` :
+											''
+									);
 									onSetScopeName(suggestedScopeName);
 									onNextStep();
 								}
@@ -63,7 +63,7 @@ const ScopedPackageSelect = ({
 						paddingTop={1}
 					>
 						<Text>
-							<Color bgKeyword='blue'>
+							<Color bgKeyword="blue">
 								(ℹ)
 							</Color>
 						</Text>
@@ -73,9 +73,10 @@ const ScopedPackageSelect = ({
 								'https://docs.npmjs.com/about-scopes'
 							].map((line, lineIndex) => {
 								if (lineIndex === 0) {
-									return ` ${line}\n`
+									return ` ${line}\n`;
 								}
-								return `    ${line}`
+
+								return `    ${line}`;
 							}).join('')}
 						</Text>
 					</Box>
@@ -97,9 +98,9 @@ const ScopedPackageSelect = ({
 					</Text>
 				</Box>
 			)}
-		</React.Fragment>
-	)
-}
+		</>
+	);
+};
 
 ScopedPackageSelect.propTypes = {
 	isScoped: bool,
@@ -108,6 +109,6 @@ ScopedPackageSelect.propTypes = {
 	onSkipScopeNameStep: func,
 	onSetScopeName: func,
 	onSetIsScoped: func
-}
+};
 
 module.exports = ScopedPackageSelect;
