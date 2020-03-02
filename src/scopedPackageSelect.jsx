@@ -73,10 +73,10 @@ const ScopedPackageSelect = ({
               'https://docs.npmjs.com/about-scopes'
             ].map((line, lineIndex) => {
               if (lineIndex === 0) {
-                return ` ${line}\n`
+                return ` ${line}`
               }
               return `    ${line}`
-            }).join('')}
+            }).join('\n')}
           </Text>
         </Box>
       </Box>
