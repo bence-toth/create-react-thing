@@ -7,7 +7,8 @@
 		"node": ">=8"
 	},
 	"scripts": {
-		"test": "xo && ava"
+		"lint": "xo",
+		"test": "ava"
 	},
 	"files": [
 		"LICENSE",
