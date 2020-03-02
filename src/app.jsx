@@ -15,6 +15,7 @@ const KeywordsInput = importJsx('./keywordsInput.jsx')
 const GitRepoUrlInput = importJsx('./gitRepoUrlInput.jsx')
 const AuthorNameInput = importJsx('./authorNameInput.jsx')
 const AuthorEmailInput = importJsx('./authorEmailInput.jsx')
+const AuthorWebsiteInput = importJsx('./authorWebsiteInput.jsx')
 
 const {upcoming, current, completed} = stepStates
 
@@ -102,6 +103,11 @@ const App = ({
   ] = useState('')
 
   // Step 9: Author website
+  const [
+    authorWebsite,
+    onSetAuthorWebsite
+  ] = useState('')
+
   // Step 10: License
   // Step 11: CoC
 
@@ -218,6 +224,17 @@ const App = ({
         })}
         authorEmail={authorEmail}
         onSetAuthorEmail={onSetAuthorEmail}
+      />
+      <AuthorWebsiteInput
+        onNextStep={() => {
+          onSetStep(10)
+        }}
+        state={getStepState({
+          currentStep: step,
+          stepNumber: 9
+        })}
+        authorWebsite={authorWebsite}
+        onSetAuthorWebsite={onSetAuthorWebsite}
       />
       <Box paddingTop={2}>
         <Text>
