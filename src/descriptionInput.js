@@ -18,7 +18,7 @@ const DescriptionInput = ({
 }) => (
 	<InputStep
 		state={state}
-		label='description'
+		label='Description'
 		value={description}
 		onChange={onSetDescription}
 		onSubmit={onNextStep}
