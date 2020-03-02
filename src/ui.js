@@ -104,7 +104,11 @@ const App = ({
 					{'Creating React library '}
 					{(packageName.length > 0) && (
 						<Color green>
-							{packageName}
+							{(
+								(isScoped && (scopeName.length > 0))
+									? `${scopeName}/${packageName}`
+									: packageName
+							)}
 						</Color>
 					)}
 				</Text>
