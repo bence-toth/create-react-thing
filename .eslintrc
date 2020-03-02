@@ -1,0 +1,7 @@
+{
+  "extends": ["@bence.a.toth/eslint-config"],
+  "rules": {
+    "import/no-unused-modules": 0,
+    "jest/expect-expect": 0
+  }
+}
