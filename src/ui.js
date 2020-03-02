@@ -1,12 +1,13 @@
 const React = require('react');
 const {useState} = React;
-const {string, object, func, oneOf} = require('prop-types');
-const {Box, Text, Color} = require('ink');
-const {useNpmUsername} = require('./hooks');
+const {string, object} = require('prop-types');
+const {Box} = require('ink');
 const importJsx = require('import-jsx');
 
+const Header = importJsx('./header');
 const PackageNameInput = importJsx('./packageNameInput');
 const ScopedPackageSelect = importJsx('./scopedPackageSelect');
+const ScopeNameInput = importJsx('./scopeNameInput');
 
 const licenses = {
 	mit: 'mit',
@@ -49,47 +50,41 @@ const App = ({
 		onSetScopeName
 	] = useState('');
 
-	// Step 4
-	const [
-		description,
-		onSetDescription
-	] = useState('');
+	// // Step 4
+	// const [
+	// 	description,
+	// 	onSetDescription
+	// ] = useState('');
 
-	// Step 5
-	const [
-		keywords,
-		onSetKeywords
-	] = useState('');
+	// // Step 5
+	// const [
+	// 	keywords,
+	// 	onSetKeywords
+	// ] = useState('');
 
-	// Step 6
-	const [
-		gitRepositoryUrl,
-		onSetGitRepositoryUrl
-	] = useState('');
+	// // Step 6
+	// const [
+	// 	gitRepositoryUrl,
+	// 	onSetGitRepositoryUrl
+	// ] = useState('');
 
-	// Step 7
-	const [
-		authorEmail,
-		onSetAuthorEmail
-	] = useState('');
+	// // Step 7
+	// const [
+	// 	authorEmail,
+	// 	onSetAuthorEmail
+	// ] = useState('');
 
-	// Step 8
-	const [
-		license,
-		onSetLicense
-	] = useState(licenses.mit);
+	// // Step 8
+	// const [
+	// 	license,
+	// 	onSetLicense
+	// ] = useState(licenses.mit);
 
-	// Step 9
-	const [
-		codeOfConduct,
-		onSetCodeOfConduct
-	] = useState(codeOfConducts.contributorCovenant);
-
-	// Step 10
-	const [
-		npmUsername,
-		onSetNpmUsername
-	] = useNpmUsername();
+	// // Step 9
+	// const [
+	// 	codeOfConduct,
+	// 	onSetCodeOfConduct
+	// ] = useState(codeOfConducts.contributorCovenant);
 
 	return (
 		<Box
@@ -97,17 +92,14 @@ const App = ({
 			paddingY={1}
 			paddingX={2}
 		>
-			<Text>Current step: {step}</Text>
-			<Box paddingBottom={1}>
-				<Text>
-					{'Creating React library '}
-					{(packageName.length > 0) && (
-						<Color green>
-							{packageName}
-						</Color>
-					)}
-				</Text>
-			</Box>
+			<Header
+				step={step}
+				packageName={(
+					(isScoped && (scopeName.length > 0))
+						? `${scopeName}/${packageName}`
+						: packageName
+				)}
+			/>
 			<PackageNameInput
 				packageName={packageName}
 				state={(() => {
@@ -137,25 +129,26 @@ const App = ({
 					}
 				})()}
 				onSetIsScoped={onSetIsScoped}
+				onSetScopeName={onSetScopeName}
 				onSetStep={onSetStep}
 			/>
-			{(Object.values(flags).length > 0) && (
-				<>
-					<Text>{' '}</Text>
-					<Box flexDirection="column">
-						{Object.keys(flags).map(flag => (
-							<Box key={flag}>
-								<Text>
-									<Color red>{`  ${flag}: `}</Color>
-								</Text>
-								<Text>
-									<Color white>{`${flags[flag]}`}</Color>
-								</Text>
-							</Box>
-						))}
-					</Box>
-					<Text>{' '}</Text>
-				</>
+			{isScoped && (
+				<ScopeNameInput
+					onSetStep={onSetStep}
+					state={(() => {
+						if (step < 3) {
+							return ScopeNameInput.states.upcoming
+						}
+						if (step === 3) {
+							return ScopeNameInput.states.current
+						}
+						if (step > 3) {
+							return ScopeNameInput.states.completed
+						}
+					})()}
+					scopeName={scopeName}
+					onSetScopeName={onSetScopeName}
+				/>
 			)}
 		</Box>
 	);

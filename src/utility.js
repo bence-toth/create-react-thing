@@ -8,10 +8,49 @@ const capitalizeString = string => {
 
 const validatePackageName = packageName => {
 	const {errors} = validateNpmPackageName(packageName);
-	return errors;
+	return (
+		errors
+			? errors.map(capitalizeString)
+			: undefined
+	)
 };
 
+const validateScopeName = packageName => {
+	const {errors: npmErrors} = validateNpmPackageName(
+		packageName.substring(1)
+	)
+	const updatedNpmErrors = npmErrors && npmErrors.map(error => {
+		if (error === 'name length must be greater than zero') {
+			return 'name length must be greater than one'
+		}
+		return error
+	})
+	const errors = [
+		...(
+			(packageName.length === 0)
+				? ['name length must be greater than zero']
+				: []
+		),
+		...(
+			(packageName && (packageName.charAt(0) !== '@'))
+				? (['name must start with an @'])
+				: []
+		),
+		...(
+			(packageName && packageName.includes('/'))
+				? (['name must not contain a /'])
+				: []
+		),
+		...(updatedNpmErrors || [])
+	]
+	return (
+		(errors.length > 0)
+			? errors.map(capitalizeString)
+			: undefined
+	)
+}
+
 module.exports = {
-	capitalizeString,
-	validatePackageName
+	validatePackageName,
+	validateScopeName
 };

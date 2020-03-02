@@ -1,8 +1,9 @@
 const React = require('react');
 const {string, func, oneOf} = require('prop-types');
-const {Box, Text, Color} = require('ink');
-const {default: Input} = require('ink-text-input');
-const {capitalizeString, validatePackageName} = require('./utility')
+const {validatePackageName} = require('./utility')
+const importJsx = require('import-jsx');
+
+const InputStep = importJsx('./inputStep.js')
 
 const {useEffect, useState} = React;
 
@@ -33,62 +34,32 @@ const PackageNameInput = ({
 		onSetValidationErrors(validatePackageName(packageName))
 	}, [packageName])
 	return (
-		<React.Fragment>
-			{(state === current) && (
-				<Box flexDirection="column">
-					<Box flexDirection="row">
-						<Text>- </Text>
-						<Text bold>npm package name: </Text>
-						<Input
-							value={packageName}
-							onChange={value => {
-								onSetIsDirty(true);
-								onSetPackageName(value);
-							}}
-							onSubmit={() => {
-								onSetIsDirty(true);
-								if (!validationErrors) {
-									if (packageName.includes('/')) {
-										// Scoped package
-										onSetIsScoped(true);
-										const [scopeName, actualPackageName]
-											= packageName.split('/');
-										onSetPackageName(actualPackageName)
-										onSetScopeName(scopeName);
-										onSetStep(4);
-									}
-									else {
-										onSetStep(2);
-									}
-								}
-							}}
-						/>
-					</Box>
-					{isDirty && validationErrors && (
-						<Box paddingTop={1}>
-							<Text>
-								<Color bgKeyword='red'>
-									[!]
-								</Color>
-								{' '}
-								{capitalizeString(validationErrors[0])}
-							</Text>
-						</Box>
-					)}
-				</Box>
+		<InputStep
+			state={state}
+			label='npm package name'
+			value={packageName}
+			onChange={onSetPackageName}
+			onSubmit={() => {
+				onSetIsDirty(true);
+				if (!validationErrors) {
+					if (packageName.includes('/')) {
+						// Scoped package
+						onSetIsScoped(true);
+						const [scopeName, actualPackageName]
+							= packageName.split('/');
+						onSetPackageName(actualPackageName)
+						onSetScopeName(scopeName);
+						onSetStep(4);
+					}
+					else {
+						onSetStep(2);
+					}
+				}
+			}}
+			validationError={(isDirty && validationErrors) && (
+				validationErrors[0]
 			)}
-			{(state === completed) && (
-				<Box flexDirection="row">
-					<Text>
-						<Color green>
-							{'✓ '}
-						</Color>
-					</Text>
-					<Text>npm package name: </Text>
-					<Text>{packageName}</Text>
-				</Box>
-			)}
-		</React.Fragment>
+		/>
 	)
 }
 

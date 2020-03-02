@@ -20,8 +20,8 @@ const useNpmUsername = () => {
 			});
   }, []);
 
-  // Expose value and setter
-  return [npmUsername, onSetNpmUsername];
+  // Expose value
+  return npmUsername;
 }
 
 module.exports = {
