@@ -10,6 +10,7 @@ const PackageNameInput = importJsx('./packageNameInput');
 const ScopedPackageSelect = importJsx('./scopedPackageSelect');
 const ScopeNameInput = importJsx('./scopeNameInput');
 const DescriptionInput = importJsx('./descriptionInput');
+const KeywordsInput = importJsx('./keywordsInput.js');
 
 const {current, completed} = stepStates;
 
@@ -51,11 +52,11 @@ const App = ({
 		onSetDescription
 	] = useState('');
 
-	// // Step 5
-	// const [
-	// 	keywords,
-	// 	onSetKeywords
-	// ] = useState('');
+	// Step 5
+	const [
+		keywords,
+		onSetKeywords
+	] = useState([]);
 
 	// // Step 6
 	// const [
@@ -166,6 +167,21 @@ const App = ({
 					onSetStep(5)
 				}}
 			/>
+			<KeywordsInput
+				keywords={keywords}
+				state={(() => {
+					if (step === 5) {
+						return current
+					}
+					if (step > 5) {
+						return completed
+					}
+				})()}
+				onSetKeywords={onSetKeywords}
+				onNextStep={() => {
+					onSetStep(6)
+				}}
+			/>
 			<Box paddingTop={2}>
 				<Text>
 					<Color blueBright>
@@ -173,7 +189,8 @@ const App = ({
 							packageName,
 							isScoped,
 							scopeName,
-							description
+							description,
+							keywords
 						})}
 					</Color>
 				</Text>
