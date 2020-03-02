@@ -1,6 +1,7 @@
 const React = require('react');
 const {bool, func, oneOf} = require('prop-types');
 const {Box, Text, Color} = require('ink');
+const {useNpmUsername} = require('./hooks')
 const importJsx = require('import-jsx');
 
 const Select = importJsx('./select');
@@ -24,9 +25,11 @@ const options = [{
 const ScopedPackageSelect = ({
 	isScoped,
 	onSetIsScoped,
+	onSetScopeName,
 	onSetStep,
 	state
 }) => {
+	const npmUsername = useNpmUsername()
 	return (
 		<React.Fragment>
 			{(state === current) && (
@@ -51,6 +54,12 @@ const ScopedPackageSelect = ({
 							onChange={onSetIsScoped}
 							onSelect={() => {
 								if (isScoped) {
+									const suggestedScopeName = (
+										(npmUsername.length > 0)
+											? `@${npmUsername}`
+											: ''
+									)
+									onSetScopeName(suggestedScopeName);
 									onSetStep(3);
 								}
 								else {
@@ -83,6 +92,7 @@ ScopedPackageSelect.propTypes = {
 	isScoped: bool,
 	state: oneOf(Object.values(states)),
 	onSetStep: func,
+	onSetScopeName: func,
 	onSetIsScoped: func
 }
 
