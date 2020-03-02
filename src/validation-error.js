@@ -7,17 +7,17 @@ const ValidationError = ({
 }) => (
 	<Box paddingTop={1}>
 		<Text>
-			<Color bgKeyword='red'>
+			<Color bgKeyword="red">
 				[!]
 			</Color>
 			{' '}
 			{children}
 		</Text>
 	</Box>
-)
+);
 
 ValidationError.propTypes = {
 	children: string
-}
+};
 
 module.exports = ValidationError;
