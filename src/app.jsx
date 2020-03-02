@@ -33,6 +33,11 @@ const App = ({
   // Step 4: description
   // Step 5: keywords
   // Step 6: git repo
+  // Step 7: Author name
+  // Step 8: Author email
+  // Step 9: Author website
+  // Step 10: License
+  // Step 11: CoC
 
   // Step 1: package name
   const [
@@ -70,23 +75,11 @@ const App = ({
     onSetGitRepoUrl
   ] = useState('')
 
-  // // Step 7
-  // const [
-  //   authorEmail,
-  //   onSetAuthorEmail
-  // ] = useState('')
-
-  // // Step 8
-  // const [
-  //   license,
-  //   onSetLicense
-  // ] = useState(licenses.mit)
-
-  // // Step 9
-  // const [
-  //   codeOfConduct,
-  //   onSetCodeOfConduct
-  // ] = useState(codeOfConducts.contributorCovenant)
+  // Step 7: Author name
+  // Step 8: Author email
+  // Step 9: Author website
+  // Step 10: License
+  // Step 11: CoC
 
   return (
     // eslint-disable-next-line react/jsx-filename-extension
