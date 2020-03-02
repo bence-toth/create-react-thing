@@ -49,7 +49,11 @@ const InputStep = ({
 					</Color>
 				</Text>
 				<Text>{`${label}: `}</Text>
-				<Text>{value}</Text>
+				<Text>
+					<Color blueBright>
+						{value}
+					</Color>
+				</Text>
 			</Box>
 		)}
 	</React.Fragment>

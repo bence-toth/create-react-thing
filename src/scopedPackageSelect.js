@@ -80,7 +80,11 @@ const ScopedPackageSelect = ({
 					</Text>
 					<Text>Is this a scoped package?</Text>
 					{' '}
-					<Text>{isScoped ? 'Yes' : 'No'}</Text>
+					<Text>
+						<Color blueBright>
+							{isScoped ? 'Yes' : 'No'}
+						</Color>
+					</Text>
 				</Box>
 			)}
 		</React.Fragment>
