@@ -69,9 +69,19 @@ const getLoggedInNpmUsername = async () => {
   return stdout
 }
 
+const validateAuthorName = authorName => {
+  if (authorName.length === 0) {
+    return [
+      'Author name must not be blank'
+    ]
+  }
+  return undefined
+}
+
 module.exports = {
   validatePackageName,
   validateScopeName,
   validateGitRepoUrl,
+  validateAuthorName,
   getLoggedInNpmUsername
 }
