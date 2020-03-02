@@ -1,6 +1,7 @@
 const React = require('react');
 const {string, func, oneOf} = require('prop-types');
 const {validateScopeName} = require('./utility')
+const {Text} = require('ink');
 const {stepStates} = require('./enum')
 const importJsx = require('import-jsx');
 
@@ -41,7 +42,10 @@ const ScopeNameInput = ({
 			validationError={(isDirty && validationErrors) && (
 				validationErrors[0]
 			)}
-		/>
+		>
+			{'Need help? Read more about scopes in the npm documentation:'}
+			{'https://docs.npmjs.com/about-scopes'}
+		</InputStep>
 	)
 }
 

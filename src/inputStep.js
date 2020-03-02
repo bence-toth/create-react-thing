@@ -1,5 +1,5 @@
 const React = require('react');
-const {string, func, oneOf, oneOfType, bool} = require('prop-types');
+const {string, func, oneOf, oneOfType, bool, node} = require('prop-types');
 const {Box, Text, Color} = require('ink');
 const {default: Input} = require('ink-text-input');
 const {stepStates} = require('./enum')
@@ -16,7 +16,8 @@ const InputStep = ({
 	fallback,
 	onChange,
 	onSubmit,
-	validationError
+	validationError,
+	children
 }) => (
 	<React.Fragment>
 		{(state === current) && (
@@ -35,12 +36,32 @@ const InputStep = ({
 						{validationError}
 					</ValidationError>
 				)}
+				{children && (
+					<Box
+						flexDirection="row"
+						paddingTop={1}
+					>
+						<Text>
+							<Color bgKeyword='blue'>
+								(ℹ)
+							</Color>
+						</Text>
+						<Text>
+							{children.map((line, lineIndex) => {
+								if (lineIndex === 0) {
+									return ` ${line}\n`
+								}
+								return `    ${line}`
+							}).join('')}
+						</Text>
+					</Box>
+				)}
 			</Box>
 		)}
 		{(state === completed) && (
 			<Box flexDirection="row">
 				<Text>
-					<Color green>
+					<Color greenBright>
 						{'✓ '}
 					</Color>
 				</Text>
@@ -72,7 +93,8 @@ InputStep.propTypes = {
 	fallback: string,
 	onChange: func,
 	onSubmit: func,
-	validationError: oneOfType([string, bool])
+	validationError: oneOfType([string, bool]),
+	children: node
 }
 
 module.exports = InputStep;
