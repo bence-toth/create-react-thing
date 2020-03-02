@@ -1,23 +1,17 @@
 const React = require('react');
 const {useState} = React;
 const {string, object} = require('prop-types');
-const {Box} = require('ink');
+const {Box, Text, Color} = require('ink');
+const {licenses, codeOfConducts, stepStates} = require('./enum')
 const importJsx = require('import-jsx');
 
 const Header = importJsx('./header');
 const PackageNameInput = importJsx('./packageNameInput');
 const ScopedPackageSelect = importJsx('./scopedPackageSelect');
 const ScopeNameInput = importJsx('./scopeNameInput');
+const DescriptionInput = importJsx('./descriptionInput');
 
-const licenses = {
-	mit: 'mit',
-	none: 'none'
-}
-
-const codeOfConducts = {
-	contributorCovenant: 'contributorCovenant',
-	none: 'none'
-}
+const {current, completed} = stepStates;
 
 const App = ({
 	packageName: commandLineArgumentPackageName = '',
@@ -31,6 +25,7 @@ const App = ({
 	// Step 1: package name
 	// Step 2: is it a scoped package
 	// Step 3: scope name
+	// Step 4: description
 
 	// Step 1: package name
 	const [
@@ -50,11 +45,11 @@ const App = ({
 		onSetScopeName
 	] = useState('');
 
-	// // Step 4
-	// const [
-	// 	description,
-	// 	onSetDescription
-	// ] = useState('');
+	// Step 4: description
+	const [
+		description,
+		onSetDescription
+	] = useState('');
 
 	// // Step 5
 	// const [
@@ -104,52 +99,85 @@ const App = ({
 				packageName={packageName}
 				state={(() => {
 					if (step === 1) {
-						return PackageNameInput.states.current
+						return current
 					}
 					if (step > 1) {
-						return PackageNameInput.states.completed
+						return completed
 					}
 				})()}
 				onSetPackageName={onSetPackageName}
-				onSetStep={onSetStep}
+				onNextStep={() => {
+					onSetStep(2)
+				}}
+				onSkipScopeSteps={() => {
+					onSetStep(4)
+				}}
 				onSetIsScoped={onSetIsScoped}
 				onSetScopeName={onSetScopeName}
 			/>
 			<ScopedPackageSelect
 				isScoped={isScoped}
 				state={(() => {
-					if (step < 2) {
-						return ScopedPackageSelect.states.upcoming
-					}
 					if (step === 2) {
-						return ScopedPackageSelect.states.current
+						return current
 					}
 					if (step > 2) {
-						return ScopedPackageSelect.states.completed
+						return completed
 					}
 				})()}
 				onSetIsScoped={onSetIsScoped}
 				onSetScopeName={onSetScopeName}
-				onSetStep={onSetStep}
+				onNextStep={() => {
+					onSetStep(3)
+				}}
+				onSkipScopeNameStep={() => {
+					onSetStep(4)
+				}}
 			/>
 			{isScoped && (
 				<ScopeNameInput
-					onSetStep={onSetStep}
+					onNextStep={() => {
+						onSetStep(4)
+					}}
 					state={(() => {
-						if (step < 3) {
-							return ScopeNameInput.states.upcoming
-						}
 						if (step === 3) {
-							return ScopeNameInput.states.current
+							return current
 						}
 						if (step > 3) {
-							return ScopeNameInput.states.completed
+							return completed
 						}
 					})()}
 					scopeName={scopeName}
 					onSetScopeName={onSetScopeName}
 				/>
 			)}
+			<DescriptionInput
+				description={description}
+				state={(() => {
+					if (step === 4) {
+						return current
+					}
+					if (step > 4) {
+						return completed
+					}
+				})()}
+				onSetDescription={onSetDescription}
+				onNextStep={() => {
+					onSetStep(5)
+				}}
+			/>
+			<Box paddingTop={2}>
+				<Text>
+					<Color blueBright>
+						{JSON.stringify({
+							packageName,
+							isScoped,
+							scopeName,
+							description
+						})}
+					</Color>
+				</Text>
+			</Box>
 		</Box>
 	);
 }

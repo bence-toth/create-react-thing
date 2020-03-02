@@ -4,14 +4,14 @@ const importJsx = require('import-jsx');
 const {render} = require('ink');
 const meow = require('meow');
 
-const ui = importJsx('./ui');
+const App = importJsx('./app');
 
 const {input, flags} = meow(`
 	Some help text will come here.
 `);
 
 render(
-	React.createElement(ui, {
+	React.createElement(App, {
 		packageName: input[0],
 		flags
 	})

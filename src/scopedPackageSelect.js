@@ -2,31 +2,27 @@ const React = require('react');
 const {bool, func, oneOf} = require('prop-types');
 const {Box, Text, Color} = require('ink');
 const {useNpmUsername} = require('./hooks')
+const {stepStates} = require('./enum')
 const importJsx = require('import-jsx');
 
 const Select = importJsx('./select');
 
-const states = {
-	upcoming: 'upcoming',
-	current: 'current',
-	completed: 'completed'
-};
-
-const {current, completed} = states;
+const {current, completed} = stepStates;
 
 const options = [{
 	label: 'Yes',
-	value: 'true'
+	value: true
 }, {
-	label: 'Second',
-	value: 'false'
+	label: 'No',
+	value: false
 }];
 
 const ScopedPackageSelect = ({
 	isScoped,
 	onSetIsScoped,
 	onSetScopeName,
-	onSetStep,
+	onNextStep,
+	onSkipScopeNameStep,
 	state
 }) => {
 	const npmUsername = useNpmUsername()
@@ -43,13 +39,7 @@ const ScopedPackageSelect = ({
 						paddingLeft={2}
 					>
 						<Select
-							options={[{
-								label: 'Yes',
-								value: true
-							}, {
-								label: 'No',
-								value: false
-							}]}
+							options={options}
 							value={isScoped}
 							onChange={onSetIsScoped}
 							onSelect={() => {
@@ -60,10 +50,10 @@ const ScopedPackageSelect = ({
 											: ''
 									)
 									onSetScopeName(suggestedScopeName);
-									onSetStep(3);
+									onNextStep();
 								}
 								else {
-									onSetStep(4);
+									onSkipScopeNameStep();
 								}
 							}}
 						/>
@@ -79,19 +69,22 @@ const ScopedPackageSelect = ({
 					</Text>
 					<Text>Is this a scoped package?</Text>
 					{' '}
-					<Text>{isScoped ? 'Yes' : 'No'}</Text>
+					<Text>
+						<Color blueBright>
+							{isScoped ? 'Yes' : 'No'}
+						</Color>
+					</Text>
 				</Box>
 			)}
 		</React.Fragment>
 	)
 }
 
-ScopedPackageSelect.states = states
-
 ScopedPackageSelect.propTypes = {
 	isScoped: bool,
-	state: oneOf(Object.values(states)),
-	onSetStep: func,
+	state: oneOf(Object.values(stepStates)),
+	onNextStep: func,
+	onSkipScopeNameStep: func,
 	onSetScopeName: func,
 	onSetIsScoped: func
 }

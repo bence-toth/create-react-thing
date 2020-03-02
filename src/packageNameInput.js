@@ -1,22 +1,18 @@
 const React = require('react');
 const {string, func, oneOf} = require('prop-types');
 const {validatePackageName} = require('./utility')
+const {stepStates} = require('./enum')
 const importJsx = require('import-jsx');
 
 const InputStep = importJsx('./inputStep.js')
 
 const {useEffect, useState} = React;
 
-const states = {
-	upcoming: 'upcoming',
-	current: 'current',
-	completed: 'completed'
-};
-
-const {current, completed} = states;
+const {current} = stepStates;
 
 const PackageNameInput = ({
-	onSetStep,
+	onSkipScopeSteps,
+	onNextStep,
 	state,
 	packageName,
 	onSetPackageName,
@@ -49,10 +45,10 @@ const PackageNameInput = ({
 							= packageName.split('/');
 						onSetPackageName(actualPackageName)
 						onSetScopeName(scopeName);
-						onSetStep(4);
+						onSkipScopeSteps();
 					}
 					else {
-						onSetStep(2);
+						onNextStep();
 					}
 				}
 			}}
@@ -63,11 +59,10 @@ const PackageNameInput = ({
 	)
 }
 
-PackageNameInput.states = states
-
 PackageNameInput.propTypes = {
-	onSetStep: func,
-	state: oneOf(Object.values(PackageNameInput.states)),
+	onSkipScopeSteps: func,
+	onNextStep: func,
+	state: oneOf(Object.values(stepStates)),
 	packageName: string,
 	onSetPackageName: func,
 	onSetIsScoped: func,
