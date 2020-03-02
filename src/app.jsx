@@ -16,11 +16,23 @@ const GitRepoUrlInput = importJsx('./gitRepoUrlInput.jsx')
 
 const {upcoming, current, completed} = stepStates
 
+const getStepState = ({
+  currentStep,
+  stepNumber
+}) => {
+  if (currentStep === stepNumber) {
+    return current
+  }
+
+  if (currentStep > stepNumber) {
+    return completed
+  }
+  return upcoming
+}
+
 const App = ({
   packageName: commandLineArgumentPackageName = ''
   // TODO: flags
-// TODO: Refactor this
-// eslint-disable-next-line sonarjs/cognitive-complexity
 }) => {
   const [
     step,
@@ -98,16 +110,10 @@ const App = ({
       />
       <PackageNameInput
         packageName={packageName}
-        state={(() => {
-          if (step === 1) {
-            return current
-          }
-
-          if (step > 1) {
-            return completed
-          }
-          return upcoming
-        })()}
+        state={getStepState({
+          currentStep: step,
+          stepNumber: 1
+        })}
         onSetPackageName={onSetPackageName}
         onNextStep={() => {
           onSetStep(2)
@@ -120,16 +126,10 @@ const App = ({
       />
       <ScopedPackageSelect
         isScoped={isScoped}
-        state={(() => {
-          if (step === 2) {
-            return current
-          }
-
-          if (step > 2) {
-            return completed
-          }
-          return upcoming
-        })()}
+        state={getStepState({
+          currentStep: step,
+          stepNumber: 2
+        })}
         onSetIsScoped={onSetIsScoped}
         onSetScopeName={onSetScopeName}
         onNextStep={() => {
@@ -141,16 +141,10 @@ const App = ({
       />
       {isScoped && (
       <ScopeNameInput
-        state={(() => {
-          if (step === 3) {
-            return current
-          }
-
-          if (step > 3) {
-            return completed
-          }
-          return upcoming
-        })()}
+        state={getStepState({
+          currentStep: step,
+          stepNumber: 3
+        })}
         scopeName={scopeName}
         onNextStep={() => {
           onSetStep(4)
@@ -160,16 +154,10 @@ const App = ({
       )}
       <DescriptionInput
         description={description}
-        state={(() => {
-          if (step === 4) {
-            return current
-          }
-
-          if (step > 4) {
-            return completed
-          }
-          return upcoming
-        })()}
+        state={getStepState({
+          currentStep: step,
+          stepNumber: 4
+        })}
         onSetDescription={onSetDescription}
         onNextStep={() => {
           onSetStep(5)
@@ -177,16 +165,10 @@ const App = ({
       />
       <KeywordsInput
         keywords={keywords}
-        state={(() => {
-          if (step === 5) {
-            return current
-          }
-
-          if (step > 5) {
-            return completed
-          }
-          return upcoming
-        })()}
+        state={getStepState({
+          currentStep: step,
+          stepNumber: 5
+        })}
         onSetKeywords={onSetKeywords}
         onNextStep={() => {
           onSetStep(6)
@@ -196,16 +178,10 @@ const App = ({
         onNextStep={() => {
           onSetStep(7)
         }}
-        state={(() => {
-          if (step === 6) {
-            return current
-          }
-
-          if (step > 6) {
-            return completed
-          }
-          return upcoming
-        })()}
+        state={getStepState({
+          currentStep: step,
+          stepNumber: 6
+        })}
         gitRepoUrl={gitRepoUrl}
         onSetGitRepoUrl={onSetGitRepoUrl}
       />
