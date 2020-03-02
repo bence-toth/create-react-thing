@@ -51,7 +51,7 @@ const GitRepoUrlInput = ({
       {'- https://docs.npmjs.com/files/package.json#bugs'}
       {'- https://docs.npmjs.com/files/package.json#homepage'}
       {''}
-      {'Only github repositories are supported.'}
+      {'Only GitHub repositories are supported.'}
       {'If you host your code somewhere else, leave this blank,'}
       {'and fill in this info in the `package.json` file later.'}
     </InputStep>
