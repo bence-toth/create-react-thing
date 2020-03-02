@@ -4,7 +4,7 @@ const {validatePackageName} = require('./utility');
 const {stepStates} = require('./enum');
 const importJsx = require('import-jsx');
 
-const InputStep = importJsx('./inputStep.js')
+const InputStep = importJsx('./input-step.js');
 
 const {useEffect, useState} = React;
 
@@ -19,7 +19,7 @@ const PackageNameInput = ({
 	onSetIsScoped,
 	onSetScopeName
 }) => {
-	const [isDirty, onSetIsDirty] = useState(false)
+	const [isDirty, onSetIsDirty] = useState(false);
 	useEffect(() => {
 		if (state === current) {
 			onSetIsDirty(false);
@@ -27,13 +27,16 @@ const PackageNameInput = ({
 	}, [state]);
 	const [validationErrors, onSetValidationErrors] = useState();
 	useEffect(() => {
-		onSetValidationErrors(validatePackageName(packageName))
-	}, [packageName])
+		onSetValidationErrors(validatePackageName(packageName));
+	}, [packageName]);
 	return (
 		<InputStep
 			state={state}
-			label='npm package name'
+			label="npm package name"
 			value={packageName}
+			validationError={(isDirty && validationErrors) && (
+				validationErrors[0]
+			)}
 			onChange={onSetPackageName}
 			onSubmit={() => {
 				onSetIsDirty(true);
@@ -41,9 +44,9 @@ const PackageNameInput = ({
 					if (packageName.includes('/')) {
 						// Scoped package
 						onSetIsScoped(true);
-						const [scopeName, actualPackageName]
-							= packageName.split('/');
-						onSetPackageName(actualPackageName)
+						const [scopeName, actualPackageName] =
+							packageName.split('/');
+						onSetPackageName(actualPackageName);
 						onSetScopeName(scopeName);
 						onSkipScopeSteps();
 					}
@@ -52,15 +55,12 @@ const PackageNameInput = ({
 					}
 				}
 			}}
-			validationError={(isDirty && validationErrors) && (
-				validationErrors[0]
-			)}
 		>
 			{'Need help? Read more in the npm package name guidelines:'}
 			{'https://docs.npmjs.com/package-name-guidelines'}
 		</InputStep>
-	)
-}
+	);
+};
 
 PackageNameInput.propTypes = {
 	onSkipScopeSteps: func,
@@ -70,6 +70,6 @@ PackageNameInput.propTypes = {
 	onSetPackageName: func,
 	onSetIsScoped: func,
 	onSetScopeName: func
-}
+};
 
 module.exports = PackageNameInput;
