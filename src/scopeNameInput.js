@@ -1,7 +1,5 @@
 const React = require('react');
 const {string, func, oneOf} = require('prop-types');
-const {Box, Text, Color} = require('ink');
-const {default: Input} = require('ink-text-input');
 const {validateScopeName} = require('./utility')
 const importJsx = require('import-jsx');
 
@@ -15,7 +13,7 @@ const states = {
 	completed: 'completed'
 };
 
-const {current, completed} = states;
+const {current} = states;
 
 const ScopeNameInput = ({
 	onSetStep,
