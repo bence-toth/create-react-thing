@@ -16,7 +16,8 @@ const InputStep = ({
 	fallback,
 	onChange,
 	onSubmit,
-	validationError
+	validationError,
+	children
 }) => (
 	<React.Fragment>
 		{(state === current) && (
@@ -34,6 +35,26 @@ const InputStep = ({
 					<ValidationError>
 						{validationError}
 					</ValidationError>
+				)}
+				{children && (
+					<Box
+						flexDirection="row"
+						paddingTop={1}
+					>
+						<Text>
+							<Color bgKeyword='blue'>
+								(ℹ)
+							</Color>
+						</Text>
+						<Text>
+							{children.map((line, lineIndex) => {
+								if (lineIndex === 0) {
+									return ` ${line}\n`
+								}
+								return `    ${line}`
+							}).join('')}
+						</Text>
+					</Box>
 				)}
 			</Box>
 		)}
@@ -72,7 +93,8 @@ InputStep.propTypes = {
 	fallback: string,
 	onChange: func,
 	onSubmit: func,
-	validationError: oneOfType([string, bool])
+	validationError: oneOfType([string, bool]),
+	children: node
 }
 
 module.exports = InputStep;

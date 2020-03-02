@@ -58,12 +58,33 @@ const ScopedPackageSelect = ({
 							}}
 						/>
 					</Box>
+					<Box
+						flexDirection="row"
+						paddingTop={1}
+					>
+						<Text>
+							<Color bgKeyword='blue'>
+								(ℹ)
+							</Color>
+						</Text>
+						<Text>
+							{[
+								'Need help? Read more about scopes in the npm documentation:',
+								'https://docs.npmjs.com/about-scopes'
+							].map((line, lineIndex) => {
+								if (lineIndex === 0) {
+									return ` ${line}\n`
+								}
+								return `    ${line}`
+							}).join('')}
+						</Text>
+					</Box>
 				</Box>
 			)}
 			{(state === completed) && (
 				<Box flexDirection="row">
 					<Text>
-						<Color green>
+						<Color greenBright>
 							{'✓ '}
 						</Color>
 					</Text>

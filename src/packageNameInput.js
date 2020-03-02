@@ -1,7 +1,8 @@
 const React = require('react');
 const {string, func, oneOf} = require('prop-types');
-const {validatePackageName} = require('./utility')
-const {stepStates} = require('./enum')
+const {validatePackageName} = require('./utility');
+const {stepStates} = require('./enum');
+const {Text} = require('ink');
 const importJsx = require('import-jsx');
 
 const InputStep = importJsx('./inputStep.js')
@@ -55,7 +56,10 @@ const PackageNameInput = ({
 			validationError={(isDirty && validationErrors) && (
 				validationErrors[0]
 			)}
-		/>
+		>
+			{'Need help? Read more in the npm package name guidelines:'}
+			{'https://docs.npmjs.com/package-name-guidelines'}
+		</InputStep>
 	)
 }
 

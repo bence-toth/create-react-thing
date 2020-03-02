@@ -18,7 +18,10 @@ const DescriptionInput = ({
 		fallback='blank'
 		onChange={onSetDescription}
 		onSubmit={onNextStep}
-	/>
+	>
+		{'This helps people discover your package,'}
+		{'as it’s listed in npm search.'}
+	</InputStep>
 )
 
 DescriptionInput.propTypes = {
