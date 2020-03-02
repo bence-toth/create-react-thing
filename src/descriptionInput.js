@@ -20,6 +20,7 @@ const DescriptionInput = ({
 		state={state}
 		label='Description'
 		value={description}
+		fallback='blank'
 		onChange={onSetDescription}
 		onSubmit={onNextStep}
 	/>

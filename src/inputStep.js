@@ -18,6 +18,7 @@ const InputStep = ({
 	state,
 	label,
 	value,
+	fallback,
 	onChange,
 	onSubmit,
 	validationError
@@ -50,9 +51,19 @@ const InputStep = ({
 				</Text>
 				<Text>{`${label}: `}</Text>
 				<Text>
-					<Color blueBright>
-						{value}
-					</Color>
+					{(
+						(value.length > 0)
+						? (
+							<Color blueBright>
+								{value}
+							</Color>
+						)
+						: (
+							<Color gray>
+								{fallback}
+							</Color>
+						)
+					)}
 				</Text>
 			</Box>
 		)}
@@ -65,6 +76,7 @@ InputStep.propTypes = {
 	state: oneOf(Object.values(InputStep.states)),
 	label: string,
 	value: string,
+	fallback: string,
 	onChange: func,
 	onSubmit: func,
 	validationError: oneOfType([string, bool])
