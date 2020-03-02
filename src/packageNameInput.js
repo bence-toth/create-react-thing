@@ -3,6 +3,9 @@ const {string, func, oneOf} = require('prop-types');
 const {Box, Text, Color} = require('ink');
 const {default: Input} = require('ink-text-input');
 const {validatePackageName} = require('./utility')
+const importJsx = require('import-jsx');
+
+const ValidationError = importJsx('./validationError');
 
 const {useEffect, useState} = React;
 
@@ -65,15 +68,9 @@ const PackageNameInput = ({
 						/>
 					</Box>
 					{isDirty && validationErrors && (
-						<Box paddingTop={1}>
-							<Text>
-								<Color bgKeyword='red'>
-									[!]
-								</Color>
-								{' '}
-								{validationErrors[0]}
-							</Text>
-						</Box>
+						<ValidationError>
+							{validationErrors[0]}
+						</ValidationError>
 					)}
 				</Box>
 			)}
