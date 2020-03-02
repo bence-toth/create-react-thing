@@ -93,7 +93,7 @@ const validateAuthorEmail = authorEmail => {
 
 const validateAuthorWebsite = authorEmail => {
   const urlRegex = (
-    // eslint-disable-next-line optimize-regex/optimize-regex, unicorn/regex-shorthand
+    // eslint-disable-next-line optimize-regex/optimize-regex, unicorn/regex-shorthand, no-useless-escape
     /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/
   )
   if (!urlRegex.test(authorEmail)) {
