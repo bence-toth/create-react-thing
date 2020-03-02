@@ -51,47 +51,47 @@ const App = ({
 		onSetScopeName
 	] = useState('');
 
-	// Step 4
-	const [
-		description,
-		onSetDescription
-	] = useState('');
+	// // Step 4
+	// const [
+	// 	description,
+	// 	onSetDescription
+	// ] = useState('');
 
-	// Step 5
-	const [
-		keywords,
-		onSetKeywords
-	] = useState('');
+	// // Step 5
+	// const [
+	// 	keywords,
+	// 	onSetKeywords
+	// ] = useState('');
 
-	// Step 6
-	const [
-		gitRepositoryUrl,
-		onSetGitRepositoryUrl
-	] = useState('');
+	// // Step 6
+	// const [
+	// 	gitRepositoryUrl,
+	// 	onSetGitRepositoryUrl
+	// ] = useState('');
 
-	// Step 7
-	const [
-		authorEmail,
-		onSetAuthorEmail
-	] = useState('');
+	// // Step 7
+	// const [
+	// 	authorEmail,
+	// 	onSetAuthorEmail
+	// ] = useState('');
 
-	// Step 8
-	const [
-		license,
-		onSetLicense
-	] = useState(licenses.mit);
+	// // Step 8
+	// const [
+	// 	license,
+	// 	onSetLicense
+	// ] = useState(licenses.mit);
 
-	// Step 9
-	const [
-		codeOfConduct,
-		onSetCodeOfConduct
-	] = useState(codeOfConducts.contributorCovenant);
+	// // Step 9
+	// const [
+	// 	codeOfConduct,
+	// 	onSetCodeOfConduct
+	// ] = useState(codeOfConducts.contributorCovenant);
 
-	// Step 10
-	const [
-		npmUsername,
-		onSetNpmUsername
-	] = useNpmUsername();
+	// // Step 10
+	// const [
+	// 	npmUsername,
+	// 	onSetNpmUsername
+	// ] = useNpmUsername();
 
 	return (
 		<Box
