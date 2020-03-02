@@ -43,7 +43,6 @@ const ScopeNameInput = ({
 						<Input
 							value={scopeName}
 							onChange={value => {
-								onSetIsDirty(true);
 								onSetScopeName(value);
 							}}
 							onSubmit={() => {

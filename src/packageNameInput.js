@@ -45,7 +45,6 @@ const PackageNameInput = ({
 						<Input
 							value={packageName}
 							onChange={value => {
-								onSetIsDirty(true);
 								onSetPackageName(value);
 							}}
 							onSubmit={() => {
