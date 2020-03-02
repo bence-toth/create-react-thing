@@ -12,6 +12,7 @@ const ScopedPackageSelect = importJsx('./scopedPackageSelect.jsx')
 const ScopeNameInput = importJsx('./scopeNameInput.jsx')
 const DescriptionInput = importJsx('./descriptionInput.jsx')
 const KeywordsInput = importJsx('./keywordsInput.jsx')
+const GitRepoUrlInput = importJsx('./gitRepoUrlInput.jsx')
 
 const {upcoming, current, completed} = stepStates
 
@@ -31,6 +32,7 @@ const App = ({
   // Step 3: scope name
   // Step 4: description
   // Step 5: keywords
+  // Step 6: git repo
 
   // Step 1: package name
   const [
@@ -62,11 +64,11 @@ const App = ({
     onSetKeywords
   ] = useState([])
 
-  // // Step 6
-  // const [
-  //   gitRepositoryUrl,
-  //   onSetGitRepositoryUrl
-  // ] = useState('')
+  // Step 6: git repo
+  const [
+    gitRepoUrl,
+    onSetGitRepoUrl
+  ] = useState('')
 
   // // Step 7
   // const [
@@ -196,6 +198,23 @@ const App = ({
         onNextStep={() => {
           onSetStep(6)
         }}
+      />
+      <GitRepoUrlInput
+        onNextStep={() => {
+          onSetStep(7)
+        }}
+        state={(() => {
+          if (step === 6) {
+            return current
+          }
+
+          if (step > 6) {
+            return completed
+          }
+          return upcoming
+        })()}
+        gitRepoUrl={gitRepoUrl}
+        onSetGitRepoUrl={onSetGitRepoUrl}
       />
       <Box paddingTop={2}>
         <Text>
