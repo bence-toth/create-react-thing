@@ -156,24 +156,6 @@ const App = ({
 					onSetScopeName={onSetScopeName}
 				/>
 			)}
-			{(Object.values(flags).length > 0) && (
-				<>
-					<Text>{' '}</Text>
-					<Box flexDirection="column">
-						{Object.keys(flags).map(flag => (
-							<Box key={flag}>
-								<Text>
-									<Color red>{`  ${flag}: `}</Color>
-								</Text>
-								<Text>
-									<Color white>{`${flags[flag]}`}</Color>
-								</Text>
-							</Box>
-						))}
-					</Box>
-					<Text>{' '}</Text>
-				</>
-			)}
 		</Box>
 	);
 }
