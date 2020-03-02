@@ -12,7 +12,7 @@ const Header = ({
 			<Text>
 				{'Creating React library '}
 				{(packageName.length > 0) && (
-					<Color green>
+					<Color greenBright>
 						{packageName}
 					</Color>
 				)}

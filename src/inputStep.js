@@ -1,5 +1,5 @@
 const React = require('react');
-const {string, func, oneOf, oneOfType, bool} = require('prop-types');
+const {string, func, oneOf, oneOfType, bool, node} = require('prop-types');
 const {Box, Text, Color} = require('ink');
 const {default: Input} = require('ink-text-input');
 const {stepStates} = require('./enum')
@@ -61,7 +61,7 @@ const InputStep = ({
 		{(state === completed) && (
 			<Box flexDirection="row">
 				<Text>
-					<Color green>
+					<Color greenBright>
 						{'✓ '}
 					</Color>
 				</Text>

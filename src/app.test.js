@@ -6,10 +6,10 @@ const App = require('./ui');
 
 test('show splash', t => {
 	const {lastFrame} = render((
-		<App packageName="my-app"/>
+		<App packageName="my-library"/>
 	));
 	t.is(
 		lastFrame(),
-		chalk`Creating React library {green my-app}`
+		chalk`Creating React library {greenBright my-library}`
 	);
 });
