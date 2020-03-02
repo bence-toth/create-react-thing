@@ -7,7 +7,8 @@
 		"node": ">=8"
 	},
 	"scripts": {
-		"test": "xo && ava"
+		"lint": "eslint --ignore-path .gitignore --ext .jsx --ext .js .",
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"files": [
 		"LICENSE",
@@ -28,13 +29,14 @@
 	"devDependencies": {
 		"@babel/preset-react": "^7.8.3",
 		"@babel/register": "^7.8.6",
-		"ava": "^3.4.0",
+		"@bence.a.toth/eslint-config": "^1.0.12",
+		"babel-eslint": "^10.1.0",
 		"chalk": "^3.0.0",
 		"eslint-config-xo-react": "^0.23.0",
 		"eslint-plugin-react": "^7.18.3",
 		"eslint-plugin-react-hooks": "^2.5.0",
 		"ink-testing-library": "^1.0.3",
-		"xo": "^0.27.2"
+		"eslint": "^6.8.0"
 	},
 	"ava": {
 		"require": [
