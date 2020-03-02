@@ -144,22 +144,24 @@ const App = ({
 				onSetIsScoped={onSetIsScoped}
 				onSetStep={onSetStep}
 			/>
-			<ScopeNameInput
-				onSetStep={onSetStep}
-				state={(() => {
-					if (step < 3) {
-						return ScopeNameInput.states.upcoming
-					}
-					if (step === 3) {
-						return ScopeNameInput.states.current
-					}
-					if (step > 3) {
-						return ScopeNameInput.states.completed
-					}
-				})()}
-				scopeName={scopeName}
-				onSetScopeName={onSetScopeName}
-			/>
+			{isScoped && (
+				<ScopeNameInput
+					onSetStep={onSetStep}
+					state={(() => {
+						if (step < 3) {
+							return ScopeNameInput.states.upcoming
+						}
+						if (step === 3) {
+							return ScopeNameInput.states.current
+						}
+						if (step > 3) {
+							return ScopeNameInput.states.completed
+						}
+					})()}
+					scopeName={scopeName}
+					onSetScopeName={onSetScopeName}
+				/>
+			)}
 			{(Object.values(flags).length > 0) && (
 				<>
 					<Text>{' '}</Text>
