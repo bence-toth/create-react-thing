@@ -1,32 +1,33 @@
 const React = require('react');
 const {useState} = React;
-const {string, object} = require('prop-types');
+const {string} = require('prop-types');
 const {Box, Text, Color} = require('ink');
-const {licenses, codeOfConducts, stepStates} = require('./enum')
+const {stepStates} = require('./enum');
 const importJsx = require('import-jsx');
 
 const Header = importJsx('./header');
-const PackageNameInput = importJsx('./packageNameInput');
-const ScopedPackageSelect = importJsx('./scopedPackageSelect');
-const ScopeNameInput = importJsx('./scopeNameInput');
-const DescriptionInput = importJsx('./descriptionInput');
-const KeywordsInput = importJsx('./keywordsInput.js');
+const PackageNameInput = importJsx('./package-name-input');
+const ScopedPackageSelect = importJsx('./scoped-package-select.js');
+const ScopeNameInput = importJsx('./scope-name-input');
+const DescriptionInput = importJsx('./description-input');
+const KeywordsInput = importJsx('./keywords-input.js');
 
 const {current, completed} = stepStates;
 
 const App = ({
-	packageName: commandLineArgumentPackageName = '',
-	flags
+	packageName: commandLineArgumentPackageName = ''
+	// TODO: flags
 }) => {
 	const [
 		step,
 		onSetStep
-	] = useState(1)
+	] = useState(1);
 
 	// Step 1: package name
 	// Step 2: is it a scoped package
 	// Step 3: scope name
 	// Step 4: description
+	// Step 5: keywords
 
 	// Step 1: package name
 	const [
@@ -52,7 +53,7 @@ const App = ({
 		onSetDescription
 	] = useState('');
 
-	// Step 5
+	// Step 5: keywords
 	const [
 		keywords,
 		onSetKeywords
@@ -91,27 +92,28 @@ const App = ({
 			<Header
 				step={step}
 				packageName={(
-					(isScoped && (scopeName.length > 0))
-						? `${scopeName}/${packageName}`
-						: packageName
+					(isScoped && (scopeName.length > 0)) ?
+						`${scopeName}/${packageName}` :
+						packageName
 				)}
 			/>
 			<PackageNameInput
 				packageName={packageName}
 				state={(() => {
 					if (step === 1) {
-						return current
+						return current;
 					}
+
 					if (step > 1) {
-						return completed
+						return completed;
 					}
 				})()}
 				onSetPackageName={onSetPackageName}
 				onNextStep={() => {
-					onSetStep(2)
+					onSetStep(2);
 				}}
 				onSkipScopeSteps={() => {
-					onSetStep(4)
+					onSetStep(4);
 				}}
 				onSetIsScoped={onSetIsScoped}
 				onSetScopeName={onSetScopeName}
@@ -120,35 +122,37 @@ const App = ({
 				isScoped={isScoped}
 				state={(() => {
 					if (step === 2) {
-						return current
+						return current;
 					}
+
 					if (step > 2) {
-						return completed
+						return completed;
 					}
 				})()}
 				onSetIsScoped={onSetIsScoped}
 				onSetScopeName={onSetScopeName}
 				onNextStep={() => {
-					onSetStep(3)
+					onSetStep(3);
 				}}
 				onSkipScopeNameStep={() => {
-					onSetStep(4)
+					onSetStep(4);
 				}}
 			/>
 			{isScoped && (
 				<ScopeNameInput
-					onNextStep={() => {
-						onSetStep(4)
-					}}
 					state={(() => {
 						if (step === 3) {
-							return current
+							return current;
 						}
+
 						if (step > 3) {
-							return completed
+							return completed;
 						}
 					})()}
 					scopeName={scopeName}
+					onNextStep={() => {
+						onSetStep(4);
+					}}
 					onSetScopeName={onSetScopeName}
 				/>
 			)}
@@ -156,30 +160,32 @@ const App = ({
 				description={description}
 				state={(() => {
 					if (step === 4) {
-						return current
+						return current;
 					}
+
 					if (step > 4) {
-						return completed
+						return completed;
 					}
 				})()}
 				onSetDescription={onSetDescription}
 				onNextStep={() => {
-					onSetStep(5)
+					onSetStep(5);
 				}}
 			/>
 			<KeywordsInput
 				keywords={keywords}
 				state={(() => {
 					if (step === 5) {
-						return current
+						return current;
 					}
+
 					if (step > 5) {
-						return completed
+						return completed;
 					}
 				})()}
 				onSetKeywords={onSetKeywords}
 				onNextStep={() => {
-					onSetStep(6)
+					onSetStep(6);
 				}}
 			/>
 			<Box paddingTop={2}>
@@ -197,15 +203,15 @@ const App = ({
 			</Box>
 		</Box>
 	);
-}
+};
 
 App.propTypes = {
-	packageName: string,
-	flags: object
+	packageName: string
+	// TODO: flags: object
 };
 
 App.defaultProps = {
-	flags: {}
+	// TODO: flags: {}
 };
 
 module.exports = App;
