@@ -19,7 +19,7 @@ const DescriptionInput = ({
     onChange={onSetDescription}
     onSubmit={onNextStep}
   >
-    {'This helps people discover your package,'}
+    {'Description helps people discover your package,'}
     {'as it’s listed in npm search.'}
   </InputStep>
 )
