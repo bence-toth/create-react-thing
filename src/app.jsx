@@ -18,6 +18,7 @@ const AuthorNameInput = importJsx('./authorNameInput.jsx')
 const AuthorEmailInput = importJsx('./authorEmailInput.jsx')
 const AuthorWebsiteInput = importJsx('./authorWebsiteInput.jsx')
 const LicenseSelect = importJsx('./licenseSelect.jsx')
+const CodeOfConductSelect = importJsx('./codeOfConductSelect.jsx')
 
 const {upcoming, current, completed} = stepStates
 
@@ -128,6 +129,14 @@ const App = ({
   ] = useState(defaultLicense)
 
   // CoC
+  const defaultCodeOfConduct = CodeOfConductSelect
+    .options
+    .find(option => option.default)
+    .value
+  const [
+    codeOfConduct,
+    onSetCodeOfConduct
+  ] = useState(defaultCodeOfConduct)
 
   return (
     <Box
@@ -217,12 +226,21 @@ const App = ({
           onSetStep
         })}
       />
+      <CodeOfConductSelect
+        codeOfConduct={codeOfConduct}
+        onSetCodeOfConduct={onSetCodeOfConduct}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 8,
+          onSetStep
+        })}
+      />
       <AuthorNameInput
         authorName={authorName}
         onSetAuthorName={onSetAuthorName}
         {...getStepProps({
           currentStep: step,
-          stepNumber: 8,
+          stepNumber: 9,
           onSetStep
         })}
       />
@@ -231,7 +249,7 @@ const App = ({
         onSetAuthorEmail={onSetAuthorEmail}
         {...getStepProps({
           currentStep: step,
-          stepNumber: 9,
+          stepNumber: 10,
           onSetStep
         })}
       />
@@ -240,7 +258,7 @@ const App = ({
         onSetAuthorWebsite={onSetAuthorWebsite}
         {...getStepProps({
           currentStep: step,
-          stepNumber: 10,
+          stepNumber: 11,
           onSetStep
         })}
       />
