@@ -29,7 +29,7 @@ const AuthorNameInput = ({
   return (
     <InputStep
       state={state}
-      label='Author name'
+      label='author name'
       value={authorName}
       validationError={(isDirty && validationErrors) && (
         validationErrors[0]
@@ -44,7 +44,7 @@ const AuthorNameInput = ({
     >
       {'This is used to fill in the `author` field in the `package.json` file.'}
       {''}
-      {'Read more about it here:'}
+      {'Read more here:'}
       {'https://docs.npmjs.com/files/package.json#people-fields-author-contributors'}
     </InputStep>
   )

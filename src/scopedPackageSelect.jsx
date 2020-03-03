@@ -27,7 +27,7 @@ const ScopedPackageSelect = ({
   return (
     <SelectStep
       state={state}
-      label='Is this a scoped package?'
+      label='is this a scoped package?'
       value={isScoped}
       options={options}
       onChange={onSetIsScoped}

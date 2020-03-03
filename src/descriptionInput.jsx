@@ -13,7 +13,7 @@ const DescriptionInput = ({
 }) => (
   <InputStep
     state={state}
-    label='Description'
+    label='description'
     value={description}
     fallback='blank'
     onChange={onSetDescription}

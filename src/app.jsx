@@ -18,6 +18,7 @@ const AuthorNameInput = importJsx('./authorNameInput.jsx')
 const AuthorEmailInput = importJsx('./authorEmailInput.jsx')
 const AuthorWebsiteInput = importJsx('./authorWebsiteInput.jsx')
 const LicenseSelect = importJsx('./licenseSelect.jsx')
+const CodeOfConductSelect = importJsx('./codeOfConductSelect.jsx')
 
 const {upcoming, current, completed} = stepStates
 
@@ -59,25 +60,13 @@ const App = ({
     onSetStep
   ] = useState(1)
 
-  // Step 1: package name
-  // Step 2: is it a scoped package
-  // Step 3: scope name
-  // Step 4: description
-  // Step 5: keywords
-  // Step 6: git repo
-  // Step 7: Author name
-  // Step 8: Author email
-  // Step 9: Author website
-  // Step 10: License
-  // Step 11: CoC
-
-  // Step 1: package name
+  // Package name
   const [
     packageName,
     onSetPackageName
   ] = useState(commandLineArgumentPackageName)
 
-  // Step 2: is it a scoped package
+  // Is it a scoped package?
   const defaultIsScoped = ScopedPackageSelect
     .options
     .find(option => option.default)
@@ -87,49 +76,49 @@ const App = ({
     onSetIsScoped
   ] = useState(defaultIsScoped)
 
-  // Step 3: scope name
+  // Scope name
   const [
     scopeName,
     onSetScopeName
   ] = useState('')
 
-  // Step 4: description
+  // Description
   const [
     description,
     onSetDescription
   ] = useState('')
 
-  // Step 5: keywords
+  // Keywords
   const [
     keywords,
     onSetKeywords
   ] = useState([])
 
-  // Step 6: git repo
+  // Git repo URL
   const [
     gitRepoUrl,
     onSetGitRepoUrl
   ] = useState('')
 
-  // Step 7: Author name
+  // Author name
   const [
     authorName,
     onSetAuthorName
   ] = useState('')
 
-  // Step 8: Author email
+  // Author email
   const [
     authorEmail,
     onSetAuthorEmail
   ] = useState('')
 
-  // Step 9: Author website
+  // Author website
   const [
     authorWebsite,
     onSetAuthorWebsite
   ] = useState('')
 
-  // Step 10: License
+  // License
   const defaultLicense = LicenseSelect
     .options
     .find(option => option.default)
@@ -138,10 +127,18 @@ const App = ({
     license,
     onSetLicense
   ] = useState(defaultLicense)
-  // Step 11: CoC
+
+  // CoC
+  const defaultCodeOfConduct = CodeOfConductSelect
+    .options
+    .find(option => option.default)
+    .value
+  const [
+    codeOfConduct,
+    onSetCodeOfConduct
+  ] = useState(defaultCodeOfConduct)
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <Box
       flexDirection='column'
       paddingY={1}
@@ -183,15 +180,15 @@ const App = ({
         })}
       />
       {isScoped && (
-      <ScopeNameInput
-        scopeName={scopeName}
-        onSetScopeName={onSetScopeName}
-        {...getStepProps({
-          currentStep: step,
-          stepNumber: 3,
-          onSetStep
-        })}
-      />
+        <ScopeNameInput
+          scopeName={scopeName}
+          onSetScopeName={onSetScopeName}
+          {...getStepProps({
+            currentStep: step,
+            stepNumber: 3,
+            onSetStep
+          })}
+        />
       )}
       <DescriptionInput
         description={description}
@@ -220,21 +217,42 @@ const App = ({
           onSetStep
         })}
       />
-      <AuthorNameInput
-        authorName={authorName}
-        onSetAuthorName={onSetAuthorName}
+      <LicenseSelect
+        license={license}
+        onSetLicense={onSetLicense}
         {...getStepProps({
           currentStep: step,
           stepNumber: 7,
           onSetStep
         })}
       />
-      <AuthorEmailInput
-        authorEmail={authorEmail}
-        onSetAuthorEmail={onSetAuthorEmail}
+      <CodeOfConductSelect
+        codeOfConduct={codeOfConduct}
+        onSetCodeOfConduct={onSetCodeOfConduct}
         {...getStepProps({
           currentStep: step,
           stepNumber: 8,
+          onSetStep
+        })}
+      />
+      <AuthorNameInput
+        authorName={authorName}
+        onSetAuthorName={onSetAuthorName}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 9,
+          onSetStep
+        })}
+      />
+      <AuthorEmailInput
+        authorEmail={authorEmail}
+        onSetAuthorEmail={onSetAuthorEmail}
+        isRequiredForCodeOfConduct={
+          codeOfConduct === 'contributorCovenant'
+        }
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 10,
           onSetStep
         })}
       />
@@ -243,16 +261,7 @@ const App = ({
         onSetAuthorWebsite={onSetAuthorWebsite}
         {...getStepProps({
           currentStep: step,
-          stepNumber: 9,
-          onSetStep
-        })}
-      />
-      <LicenseSelect
-        license={license}
-        onSetLicense={onSetLicense}
-        {...getStepProps({
-          currentStep: step,
-          stepNumber: 10,
+          stepNumber: 11,
           onSetStep
         })}
       />

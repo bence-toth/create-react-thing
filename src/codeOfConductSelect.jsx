@@ -6,46 +6,43 @@ const importJsx = require('import-jsx')
 const SelectStep = importJsx('./selectStep.jsx')
 
 const options = [{
-  label: 'MIT',
-  value: 'MIT',
+  label: 'Contributor Covenant',
+  value: 'contributorCovenant',
   default: true
 }, {
   label: 'None',
   value: null
 }]
 
-const LicenseSelect = ({
-  license,
-  onSetLicense,
+const CodeOfConductSelect = ({
+  codeOfConduct,
+  onSetCodeOfConduct,
   onNextStep,
   state
 }) => (
   <SelectStep
     state={state}
-    label='license'
-    value={license}
+    label='code of conduct'
+    value={codeOfConduct}
     options={options}
-    onChange={onSetLicense}
+    onChange={onSetCodeOfConduct}
     onSubmit={() => {
       onNextStep()
     }}
   >
-    {'Learn more about the MIT license here:'}
-    {'https://choosealicense.com/licenses/mit/'}
-    {''}
-    {'Need help choosing a license? Check out this:'}
-    {'https://choosealicense.com/'}
+    {'Learn more about the Contributor Covenant here:'}
+    {'https://www.contributor-covenant.org/'}
   </SelectStep>
 )
 
 // eslint-disable-next-line fp/no-mutation
-LicenseSelect.options = options
+CodeOfConductSelect.options = options
 
-LicenseSelect.propTypes = {
-  license: string,
+CodeOfConductSelect.propTypes = {
+  codeOfConduct: string,
   state: oneOf(Object.values(stepStates)),
   onNextStep: func,
-  onSetLicense: func
+  onSetCodeOfConduct: func
 }
 
-module.exports = LicenseSelect
+module.exports = CodeOfConductSelect

@@ -29,7 +29,7 @@ const AuthorWebsiteInput = ({
   return (
     <InputStep
       state={state}
-      label='Author website'
+      label='author website'
       fallback='blank'
       value={authorWebsite}
       validationError={(isDirty && validationErrors && (authorWebsite.length > 0)) && (
@@ -46,7 +46,7 @@ const AuthorWebsiteInput = ({
       {'This is used to fill in the `author` field in the `package.json` file.'}
       {'This field is optional.'}
       {''}
-      {'Read more about it here:'}
+      {'Read more here:'}
       {'https://docs.npmjs.com/files/package.json#people-fields-author-contributors'}
     </InputStep>
   )
