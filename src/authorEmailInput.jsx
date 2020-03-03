@@ -1,5 +1,5 @@
 const React = require('react')
-const {string, func, oneOf} = require('prop-types')
+const {bool, string, func, oneOf} = require('prop-types')
 const {validateAuthorEmail} = require('./utility')
 const {stepStates} = require('./enum')
 const importJsx = require('import-jsx')
@@ -14,7 +14,8 @@ const AuthorEmailInput = ({
   onNextStep,
   state,
   authorEmail,
-  onSetAuthorEmail
+  onSetAuthorEmail,
+  isRequiredForCodeOfConduct
 }) => {
   const [isDirty, onSetIsDirty] = useState(false)
   useEffect(() => {
@@ -32,19 +33,32 @@ const AuthorEmailInput = ({
       label='author email address'
       fallback='blank'
       value={authorEmail}
-      validationError={(isDirty && validationErrors && (authorEmail.length > 0)) && (
-        validationErrors[0]
-      )}
+      validationError={isDirty && (() => {
+        if (validationErrors && (authorEmail.length > 0)) {
+          return validationErrors[0]
+        }
+        if (isRequiredForCodeOfConduct && (authorEmail.length === 0)) {
+          return 'Author email is required for the code of conduct'
+        }
+        return null
+      })()}
       onChange={onSetAuthorEmail}
       onSubmit={() => {
         onSetIsDirty(true)
-        if (!validationErrors || (authorEmail.length === 0)) {
+        const isNotRequiredAndBlank =
+          !isRequiredForCodeOfConduct && (authorEmail.length === 0)
+        const isValid = !validationErrors
+        if (isNotRequiredAndBlank || isValid) {
           onNextStep()
         }
       }}
     >
       {'This is used to fill in the `author` field in the `package.json` file.'}
-      {'This field is optional.'}
+      {(
+        isRequiredForCodeOfConduct
+          ? 'This will also be used in the code of conduct.'
+          : 'This field is optional.'
+      )}
       {''}
       {'Read more about it here:'}
       {'https://docs.npmjs.com/files/package.json#people-fields-author-contributors'}
@@ -56,7 +70,8 @@ AuthorEmailInput.propTypes = {
   onNextStep: func,
   state: oneOf(Object.values(stepStates)),
   authorEmail: string,
-  onSetAuthorEmail: func
+  onSetAuthorEmail: func,
+  isRequiredForCodeOfConduct: bool
 }
 
 module.exports = AuthorEmailInput

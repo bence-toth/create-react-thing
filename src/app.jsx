@@ -247,6 +247,9 @@ const App = ({
       <AuthorEmailInput
         authorEmail={authorEmail}
         onSetAuthorEmail={onSetAuthorEmail}
+        isRequiredForCodeOfConduct={
+          codeOfConduct === 'contributorCovenant'
+        }
         {...getStepProps({
           currentStep: step,
           stepNumber: 10,
