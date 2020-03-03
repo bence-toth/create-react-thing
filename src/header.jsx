@@ -1,9 +1,8 @@
 const React = require('react')
-const {string, number} = require('prop-types')
+const {string} = require('prop-types')
 const {Box, Text, Color} = require('ink')
 
 const Header = ({
-  step,
   packageName
 }) => (
   <Box paddingBottom={1}>
@@ -19,7 +18,6 @@ const Header = ({
 )
 
 Header.propTypes = {
-  step: number,
   packageName: string
 }
 
