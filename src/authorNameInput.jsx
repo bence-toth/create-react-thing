@@ -44,7 +44,7 @@ const AuthorNameInput = ({
     >
       {'This is used to fill in the `author` field in the `package.json` file.'}
       {''}
-      {'Read more about it here:'}
+      {'Read more here:'}
       {'https://docs.npmjs.com/files/package.json#people-fields-author-contributors'}
     </InputStep>
   )

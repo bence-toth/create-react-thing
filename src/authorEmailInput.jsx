@@ -60,7 +60,7 @@ const AuthorEmailInput = ({
           : 'This field is optional.'
       )}
       {''}
-      {'Read more about it here:'}
+      {'Read more here:'}
       {'https://docs.npmjs.com/files/package.json#people-fields-author-contributors'}
     </InputStep>
   )
