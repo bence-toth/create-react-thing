@@ -78,10 +78,14 @@ const App = ({
   ] = useState(commandLineArgumentPackageName)
 
   // Step 2: is it a scoped package
+  const defaultIsScoped = ScopedPackageSelect
+    .options
+    .find(option => option.default)
+    .value
   const [
     isScoped,
     onSetIsScoped
-  ] = useState(false)
+  ] = useState(defaultIsScoped)
 
   // Step 3: scope name
   const [

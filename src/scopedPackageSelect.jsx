@@ -11,7 +11,8 @@ const options = [{
   value: true
 }, {
   label: 'No',
-  value: false
+  value: false,
+  default: true
 }]
 
 const ScopedPackageSelect = ({
@@ -50,6 +51,9 @@ const ScopedPackageSelect = ({
     </SelectStep>
   )
 }
+
+// eslint-disable-next-line fp/no-mutation
+ScopedPackageSelect.options = options
 
 ScopedPackageSelect.propTypes = {
   isScoped: bool,
