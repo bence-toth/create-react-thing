@@ -234,7 +234,15 @@ const App = ({
           onSetStep
         })}
       />
-      <Box paddingTop={2}>
+      <Box
+        paddingTop={2}
+        flexDirection='column'
+      >
+        <Text>
+          <Color yellow>
+            {JSON.stringify({step})}
+          </Color>
+        </Text>
         <Text>
           <Color blueBright>
             {JSON.stringify({

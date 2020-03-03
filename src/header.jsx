@@ -6,22 +6,16 @@ const Header = ({
   step,
   packageName
 }) => (
-  <>
+  <Box paddingBottom={1}>
     <Text>
-      Current step:
-      {step}
+      {'Creating React library '}
+      {(packageName.length > 0) && (
+      <Color greenBright>
+        {packageName}
+      </Color>
+      )}
     </Text>
-    <Box paddingBottom={1}>
-      <Text>
-        {'Creating React library '}
-        {(packageName.length > 0) && (
-        <Color greenBright>
-          {packageName}
-        </Color>
-        )}
-      </Text>
-    </Box>
-  </>
+  </Box>
 )
 
 Header.propTypes = {
