@@ -42,7 +42,7 @@ const KeywordsInput = ({
       }}
     >
       {'Keywords help people discover your package'}
-      {'as it’s listed in npm search.'}
+      {'as they’re listed in npm search.'}
     </InputStep>
   )
 }

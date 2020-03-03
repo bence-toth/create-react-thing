@@ -104,6 +104,17 @@ const validateAuthorWebsite = authorEmail => {
   return undefined
 }
 
+const indentStepHint = lines => (
+  lines
+    .map((line, lineIndex) => {
+      if (lineIndex === 0) {
+        return ` ${line}`
+      }
+      return `    ${line}`
+    })
+    .join('\n')
+)
+
 module.exports = {
   validatePackageName,
   validateScopeName,
@@ -111,5 +122,6 @@ module.exports = {
   validateAuthorName,
   validateAuthorEmail,
   validateAuthorWebsite,
-  getLoggedInNpmUsername
+  getLoggedInNpmUsername,
+  indentStepHint
 }

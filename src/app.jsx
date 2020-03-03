@@ -17,6 +17,7 @@ const GitRepoUrlInput = importJsx('./gitRepoUrlInput.jsx')
 const AuthorNameInput = importJsx('./authorNameInput.jsx')
 const AuthorEmailInput = importJsx('./authorEmailInput.jsx')
 const AuthorWebsiteInput = importJsx('./authorWebsiteInput.jsx')
+const LicenseSelect = importJsx('./licenseSelect.jsx')
 
 const {upcoming, current, completed} = stepStates
 
@@ -77,10 +78,14 @@ const App = ({
   ] = useState(commandLineArgumentPackageName)
 
   // Step 2: is it a scoped package
+  const defaultIsScoped = ScopedPackageSelect
+    .options
+    .find(option => option.default)
+    .value
   const [
     isScoped,
     onSetIsScoped
-  ] = useState(false)
+  ] = useState(defaultIsScoped)
 
   // Step 3: scope name
   const [
@@ -125,6 +130,14 @@ const App = ({
   ] = useState('')
 
   // Step 10: License
+  const defaultLicense = LicenseSelect
+    .options
+    .find(option => option.default)
+    .value
+  const [
+    license,
+    onSetLicense
+  ] = useState(defaultLicense)
   // Step 11: CoC
 
   return (
@@ -234,7 +247,24 @@ const App = ({
           onSetStep
         })}
       />
-      <Box paddingTop={2}>
+      <LicenseSelect
+        license={license}
+        onSetLicense={onSetLicense}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 10,
+          onSetStep
+        })}
+      />
+      <Box
+        paddingTop={2}
+        flexDirection='column'
+      >
+        <Text>
+          <Color yellow>
+            {JSON.stringify({step})}
+          </Color>
+        </Text>
         <Text>
           <Color blueBright>
             {JSON.stringify({
@@ -246,7 +276,8 @@ const App = ({
               gitRepoUrl,
               authorName,
               authorEmail,
-              authorWebsite
+              authorWebsite,
+              license
             })}
           </Color>
         </Text>
