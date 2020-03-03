@@ -59,25 +59,13 @@ const App = ({
     onSetStep
   ] = useState(1)
 
-  // Step 1: package name
-  // Step 2: is it a scoped package
-  // Step 3: scope name
-  // Step 4: description
-  // Step 5: keywords
-  // Step 6: git repo
-  // Step 7: Author name
-  // Step 8: Author email
-  // Step 9: Author website
-  // Step 10: License
-  // Step 11: CoC
-
-  // Step 1: package name
+  // Package name
   const [
     packageName,
     onSetPackageName
   ] = useState(commandLineArgumentPackageName)
 
-  // Step 2: is it a scoped package
+  // Is it a scoped package?
   const defaultIsScoped = ScopedPackageSelect
     .options
     .find(option => option.default)
@@ -87,49 +75,49 @@ const App = ({
     onSetIsScoped
   ] = useState(defaultIsScoped)
 
-  // Step 3: scope name
+  // Scope name
   const [
     scopeName,
     onSetScopeName
   ] = useState('')
 
-  // Step 4: description
+  // Description
   const [
     description,
     onSetDescription
   ] = useState('')
 
-  // Step 5: keywords
+  // Keywords
   const [
     keywords,
     onSetKeywords
   ] = useState([])
 
-  // Step 6: git repo
+  // Git repo URL
   const [
     gitRepoUrl,
     onSetGitRepoUrl
   ] = useState('')
 
-  // Step 7: Author name
+  // Author name
   const [
     authorName,
     onSetAuthorName
   ] = useState('')
 
-  // Step 8: Author email
+  // Author email
   const [
     authorEmail,
     onSetAuthorEmail
   ] = useState('')
 
-  // Step 9: Author website
+  // Author website
   const [
     authorWebsite,
     onSetAuthorWebsite
   ] = useState('')
 
-  // Step 10: License
+  // License
   const defaultLicense = LicenseSelect
     .options
     .find(option => option.default)
@@ -138,10 +126,10 @@ const App = ({
     license,
     onSetLicense
   ] = useState(defaultLicense)
-  // Step 11: CoC
+
+  // CoC
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <Box
       flexDirection='column'
       paddingY={1}
@@ -220,12 +208,21 @@ const App = ({
           onSetStep
         })}
       />
+      <LicenseSelect
+        license={license}
+        onSetLicense={onSetLicense}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 7,
+          onSetStep
+        })}
+      />
       <AuthorNameInput
         authorName={authorName}
         onSetAuthorName={onSetAuthorName}
         {...getStepProps({
           currentStep: step,
-          stepNumber: 7,
+          stepNumber: 8,
           onSetStep
         })}
       />
@@ -234,22 +231,13 @@ const App = ({
         onSetAuthorEmail={onSetAuthorEmail}
         {...getStepProps({
           currentStep: step,
-          stepNumber: 8,
+          stepNumber: 9,
           onSetStep
         })}
       />
       <AuthorWebsiteInput
         authorWebsite={authorWebsite}
         onSetAuthorWebsite={onSetAuthorWebsite}
-        {...getStepProps({
-          currentStep: step,
-          stepNumber: 9,
-          onSetStep
-        })}
-      />
-      <LicenseSelect
-        license={license}
-        onSetLicense={onSetLicense}
         {...getStepProps({
           currentStep: step,
           stepNumber: 10,
