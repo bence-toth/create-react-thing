@@ -3,6 +3,7 @@ const {string, func, oneOf, oneOfType, bool, node} = require('prop-types')
 const {Box, Text, Color} = require('ink')
 const {default: Input} = require('ink-text-input')
 const {stepStates} = require('./enum')
+const {indentStepHint} = require('./utility')
 const importJsx = require('import-jsx')
 
 const ValidationError = importJsx('./validationError.jsx')
@@ -21,65 +22,60 @@ const InputStep = ({
 }) => (
   <>
     {(state === current) && (
-    <Box flexDirection='column'>
-      <Box flexDirection='row'>
-        <Text>- </Text>
-        <Text bold>{`${label}: `}</Text>
-        <Input
-          value={value}
-          onChange={onChange}
-          onSubmit={onSubmit}
-        />
+      <Box flexDirection='column'>
+        <Box flexDirection='row'>
+          <Text>- </Text>
+          <Text bold>{`${label}: `}</Text>
+          <Input
+            value={value}
+            onChange={onChange}
+            onSubmit={onSubmit}
+          />
+        </Box>
+        {validationError && (
+          <ValidationError>
+            {validationError}
+          </ValidationError>
+        )}
+        {children && (
+        <Box
+          flexDirection='row'
+          paddingTop={1}
+        >
+          <Text>
+            <Color bgKeyword='blue'>
+              (ℹ)
+            </Color>
+          </Text>
+          <Text>
+            {indentStepHint(children)}
+          </Text>
+        </Box>
+        )}
       </Box>
-      {validationError && (
-      <ValidationError>
-        {validationError}
-      </ValidationError>
-      )}
-      {children && (
-      <Box
-        flexDirection='row'
-        paddingTop={1}
-      >
-        <Text>
-          <Color bgKeyword='blue'>
-            (ℹ)
-          </Color>
-        </Text>
-        <Text>
-          {children.map((line, lineIndex) => {
-            if (lineIndex === 0) {
-              return ` ${line}`
-            }
-            return `    ${line}`
-          }).join('\n')}
-        </Text>
-      </Box>
-      )}
-    </Box>
     )}
     {(state === completed) && (
-    <Box flexDirection='row'>
-      <Text>
-        <Color greenBright>
-          {'✓ '}
-        </Color>
-      </Text>
-      <Text>{`${label}: `}</Text>
-      <Text>
-        {((value.length > 0)
-          ? (
-            <Color blueBright>
-              {value}
-            </Color>
-          )
-          : (
-            <Color gray>
-              {fallback}
-            </Color>
-          ))}
-      </Text>
-    </Box>
+      <Box flexDirection='row'>
+        <Text>
+          <Color greenBright>
+            {'✓ '}
+          </Color>
+        </Text>
+        <Text>{`${label}: `}</Text>
+        <Text>
+          {((value.length > 0)
+            ? (
+              <Color blueBright>
+                {value}
+              </Color>
+            )
+            : (
+              <Color gray>
+                {fallback}
+              </Color>
+            ))}
+        </Text>
+      </Box>
     )}
   </>
 )
