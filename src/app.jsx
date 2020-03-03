@@ -17,6 +17,7 @@ const GitRepoUrlInput = importJsx('./gitRepoUrlInput.jsx')
 const AuthorNameInput = importJsx('./authorNameInput.jsx')
 const AuthorEmailInput = importJsx('./authorEmailInput.jsx')
 const AuthorWebsiteInput = importJsx('./authorWebsiteInput.jsx')
+const LicenseSelect = importJsx('./licenseSelect.jsx')
 
 const {upcoming, current, completed} = stepStates
 
@@ -125,6 +126,14 @@ const App = ({
   ] = useState('')
 
   // Step 10: License
+  const defaultLicense = LicenseSelect
+    .options
+    .find(option => option.default)
+    .value
+  const [
+    license,
+    onSetLicense
+  ] = useState(defaultLicense)
   // Step 11: CoC
 
   return (
@@ -234,6 +243,15 @@ const App = ({
           onSetStep
         })}
       />
+      <LicenseSelect
+        license={license}
+        onSetLicense={onSetLicense}
+        {...getStepProps({
+          currentStep: step,
+          stepNumber: 10,
+          onSetStep
+        })}
+      />
       <Box
         paddingTop={2}
         flexDirection='column'
@@ -254,7 +272,8 @@ const App = ({
               gitRepoUrl,
               authorName,
               authorEmail,
-              authorWebsite
+              authorWebsite,
+              license
             })}
           </Color>
         </Text>
