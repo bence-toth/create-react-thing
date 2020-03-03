@@ -183,15 +183,15 @@ const App = ({
         })}
       />
       {isScoped && (
-      <ScopeNameInput
-        scopeName={scopeName}
-        onSetScopeName={onSetScopeName}
-        {...getStepProps({
-          currentStep: step,
-          stepNumber: 3,
-          onSetStep
-        })}
-      />
+        <ScopeNameInput
+          scopeName={scopeName}
+          onSetScopeName={onSetScopeName}
+          {...getStepProps({
+            currentStep: step,
+            stepNumber: 3,
+            onSetStep
+          })}
+        />
       )}
       <DescriptionInput
         description={description}
