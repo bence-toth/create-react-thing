@@ -19,7 +19,7 @@ const KeywordsInput = ({
   return (
     <InputStep
       state={state}
-      label='Keywords (comma-separated)'
+      label='keywords (comma-separated)'
       value={(
         (state === current)
           ? keywordsInput

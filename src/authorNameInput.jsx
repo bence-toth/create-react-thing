@@ -29,7 +29,7 @@ const AuthorNameInput = ({
   return (
     <InputStep
       state={state}
-      label='Author name'
+      label='author name'
       value={authorName}
       validationError={(isDirty && validationErrors) && (
         validationErrors[0]

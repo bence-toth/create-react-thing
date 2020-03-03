@@ -29,7 +29,7 @@ const AuthorWebsiteInput = ({
   return (
     <InputStep
       state={state}
-      label='Author website'
+      label='author website'
       fallback='blank'
       value={authorWebsite}
       validationError={(isDirty && validationErrors && (authorWebsite.length > 0)) && (

@@ -22,7 +22,7 @@ const LicenseSelect = ({
 }) => (
   <SelectStep
     state={state}
-    label='License'
+    label='license'
     value={license}
     options={options}
     onChange={onSetLicense}

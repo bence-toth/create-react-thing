@@ -29,7 +29,7 @@ const AuthorEmailInput = ({
   return (
     <InputStep
       state={state}
-      label='Author email address'
+      label='author email address'
       fallback='blank'
       value={authorEmail}
       validationError={(isDirty && validationErrors && (authorEmail.length > 0)) && (
