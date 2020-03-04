@@ -26,14 +26,14 @@ const App = ({
       shell.exec([
         'git clone',
         'https://github.com/bence-toth/react-library-boilerplate.git',
-        packageName
+        configuration.packageName
       ].join(' '), {
         async: true,
         silent: true
       }, () => {
         // Finished git clone
         onSetIsGitClonePending(false)
-        shell.cd(packageName)
+        shell.cd(configuration.packageName)
       })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
