@@ -1,20 +1,20 @@
 const React = require('react')
 const {string, func, oneOf} = require('prop-types')
-const {validateAuthorWebsite} = require('./utility')
-const {stepStates} = require('./enum')
+const {validateAuthorName} = require('./utility')
+const {stepStates} = require('../../enum')
 const importJsx = require('import-jsx')
 
-const InputStep = importJsx('./inputStep.jsx')
+const InputStep = importJsx('../../components/inputStep.jsx')
 
 const {useEffect, useState} = React
 
 const {current} = stepStates
 
-const AuthorWebsiteInput = ({
+const AuthorNameInput = ({
   onNextStep,
   state,
-  authorWebsite,
-  onSetAuthorWebsite
+  authorName,
+  onSetAuthorName
 }) => {
   const [isDirty, onSetIsDirty] = useState(false)
   useEffect(() => {
@@ -24,27 +24,25 @@ const AuthorWebsiteInput = ({
   }, [state])
   const [validationErrors, onSetValidationErrors] = useState()
   useEffect(() => {
-    onSetValidationErrors(validateAuthorWebsite(authorWebsite))
-  }, [authorWebsite])
+    onSetValidationErrors(validateAuthorName(authorName))
+  }, [authorName])
   return (
     <InputStep
       state={state}
-      label='author website'
-      fallback='blank'
-      value={authorWebsite}
-      validationError={(isDirty && validationErrors && (authorWebsite.length > 0)) && (
+      label='author name'
+      value={authorName}
+      validationError={(isDirty && validationErrors) && (
         validationErrors[0]
       )}
-      onChange={onSetAuthorWebsite}
+      onChange={onSetAuthorName}
       onSubmit={() => {
         onSetIsDirty(true)
-        if (!validationErrors || (authorWebsite.length === 0)) {
+        if (!validationErrors) {
           onNextStep()
         }
       }}
     >
       {'This is used to fill in the `author` field in the `package.json` file.'}
-      {'This field is optional.'}
       {''}
       {'Read more here:'}
       {'https://docs.npmjs.com/files/package.json#people-fields-author-contributors'}
@@ -52,11 +50,11 @@ const AuthorWebsiteInput = ({
   )
 }
 
-AuthorWebsiteInput.propTypes = {
+AuthorNameInput.propTypes = {
   onNextStep: func,
   state: oneOf(Object.values(stepStates)),
-  authorWebsite: string,
-  onSetAuthorWebsite: func
+  authorName: string,
+  onSetAuthorName: func
 }
 
-module.exports = AuthorWebsiteInput
+module.exports = AuthorNameInput

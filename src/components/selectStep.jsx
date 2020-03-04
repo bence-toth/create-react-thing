@@ -1,23 +1,21 @@
 const React = require('react')
-const {string, func, oneOf, oneOfType, bool, node} = require('prop-types')
+const {number, bool, func, oneOf, node, string, oneOfType, arrayOf, shape} = require('prop-types')
 const {Box, Text, Color} = require('ink')
-const {default: Input} = require('ink-text-input')
-const {stepStates} = require('./enum')
+const {stepStates} = require('../enum')
 const {indentStepHint} = require('./utility')
 const importJsx = require('import-jsx')
 
-const ValidationError = importJsx('./validationError.jsx')
+const Select = importJsx('./select.jsx')
 
 const {current, completed} = stepStates
 
-const InputStep = ({
+const SelectStep = ({
   state,
   label,
   value,
-  fallback,
+  options,
   onChange,
   onSubmit,
-  validationError,
   children
 }) => (
   <>
@@ -25,19 +23,19 @@ const InputStep = ({
       <Box flexDirection='column'>
         <Box flexDirection='row'>
           <Text>- </Text>
-          <Text bold>{`${label}: `}</Text>
-          <Input
+          <Text bold>{label}</Text>
+        </Box>
+        <Box
+          paddingTop={1}
+          paddingLeft={2}
+        >
+          <Select
+            options={options}
             value={value}
             onChange={onChange}
-            onSubmit={onSubmit}
+            onSelect={onSubmit}
           />
         </Box>
-        {validationError && (
-          <ValidationError>
-            {validationError}
-          </ValidationError>
-        )}
-        {children && (
         <Box
           flexDirection='row'
           paddingTop={1}
@@ -51,7 +49,6 @@ const InputStep = ({
             {indentStepHint(children)}
           </Text>
         </Box>
-        )}
       </Box>
     )}
     {(state === completed) && (
@@ -61,34 +58,29 @@ const InputStep = ({
             {'✓ '}
           </Color>
         </Text>
-        <Text>{`${label}: `}</Text>
+        <Text>{label}</Text>
+        {' '}
         <Text>
-          {((value.length > 0)
-            ? (
-              <Color blueBright>
-                {value}
-              </Color>
-            )
-            : (
-              <Color gray>
-                {fallback}
-              </Color>
-            ))}
+          <Color blueBright>
+            {options.find(option => (option.value === value)).label}
+          </Color>
         </Text>
       </Box>
     )}
   </>
 )
 
-InputStep.propTypes = {
+SelectStep.propTypes = {
   state: oneOf(Object.values(stepStates)),
   label: string,
-  value: string,
-  fallback: string,
+  value: oneOfType([number, bool, string]),
+  options: arrayOf(shape({
+    value: oneOfType([number, bool, string]),
+    label: string
+  })),
   onChange: func,
   onSubmit: func,
-  validationError: oneOfType([string, bool]),
   children: node
 }
 
-module.exports = InputStep
+module.exports = SelectStep

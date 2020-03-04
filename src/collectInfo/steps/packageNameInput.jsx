@@ -1,10 +1,10 @@
 const React = require('react')
 const {string, func, oneOf} = require('prop-types')
 const {validatePackageName} = require('./utility')
-const {stepStates} = require('./enum')
+const {stepStates} = require('../../enum')
 const importJsx = require('import-jsx')
 
-const InputStep = importJsx('./inputStep.jsx')
+const InputStep = importJsx('../../components/inputStep.jsx')
 
 const {useEffect, useState} = React
 

@@ -1,20 +1,20 @@
 const React = require('react')
 const {string, func, oneOf} = require('prop-types')
-const {validateAuthorName} = require('./utility')
-const {stepStates} = require('./enum')
+const {validateScopeName} = require('./utility')
+const {stepStates} = require('../../enum')
 const importJsx = require('import-jsx')
 
-const InputStep = importJsx('./inputStep.jsx')
+const InputStep = importJsx('../../components/inputStep.jsx')
 
 const {useEffect, useState} = React
 
 const {current} = stepStates
 
-const AuthorNameInput = ({
+const ScopeNameInput = ({
   onNextStep,
   state,
-  authorName,
-  onSetAuthorName
+  scopeName,
+  onSetScopeName
 }) => {
   const [isDirty, onSetIsDirty] = useState(false)
   useEffect(() => {
@@ -24,17 +24,17 @@ const AuthorNameInput = ({
   }, [state])
   const [validationErrors, onSetValidationErrors] = useState()
   useEffect(() => {
-    onSetValidationErrors(validateAuthorName(authorName))
-  }, [authorName])
+    onSetValidationErrors(validateScopeName(scopeName))
+  }, [scopeName])
   return (
     <InputStep
       state={state}
-      label='author name'
-      value={authorName}
+      label='npm package scope name'
+      value={scopeName}
       validationError={(isDirty && validationErrors) && (
         validationErrors[0]
       )}
-      onChange={onSetAuthorName}
+      onChange={onSetScopeName}
       onSubmit={() => {
         onSetIsDirty(true)
         if (!validationErrors) {
@@ -42,19 +42,17 @@ const AuthorNameInput = ({
         }
       }}
     >
-      {'This is used to fill in the `author` field in the `package.json` file.'}
-      {''}
-      {'Read more here:'}
-      {'https://docs.npmjs.com/files/package.json#people-fields-author-contributors'}
+      {'Need help? Read more about scopes in the npm documentation:'}
+      {'https://docs.npmjs.com/about-scopes'}
     </InputStep>
   )
 }
 
-AuthorNameInput.propTypes = {
+ScopeNameInput.propTypes = {
   onNextStep: func,
   state: oneOf(Object.values(stepStates)),
-  authorName: string,
-  onSetAuthorName: func
+  scopeName: string,
+  onSetScopeName: func
 }
 
-module.exports = AuthorNameInput
+module.exports = ScopeNameInput
