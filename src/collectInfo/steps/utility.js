@@ -1,4 +1,3 @@
-const execa = require('execa')
 const validateNpmPackageName = require('validate-npm-package-name')
 
 const capitalizeString = string => {
@@ -64,11 +63,6 @@ const validateGitRepoUrl = url => {
   return undefined
 }
 
-const getLoggedInNpmUsername = async () => {
-  const {stdout} = await execa('npm', ['whoami'])
-  return stdout
-}
-
 const validateAuthorName = authorName => {
   if (authorName.length === 0) {
     return [
@@ -104,24 +98,11 @@ const validateAuthorWebsite = authorEmail => {
   return undefined
 }
 
-const indentStepHint = lines => (
-  lines
-    .map((line, lineIndex) => {
-      if (lineIndex === 0) {
-        return ` ${line}`
-      }
-      return `    ${line}`
-    })
-    .join('\n')
-)
-
 module.exports = {
   validatePackageName,
   validateScopeName,
   validateGitRepoUrl,
   validateAuthorName,
   validateAuthorEmail,
-  validateAuthorWebsite,
-  getLoggedInNpmUsername,
-  indentStepHint
+  validateAuthorWebsite
 }

@@ -1,9 +1,9 @@
 const React = require('react')
 const {string, func, oneOf} = require('prop-types')
-const {stepStates} = require('./enum')
+const {stepStates} = require('../../enum')
 const importJsx = require('import-jsx')
 
-const SelectStep = importJsx('./selectStep.jsx')
+const SelectStep = importJsx('../../components/selectStep.jsx')
 
 const options = [{
   label: 'MIT',

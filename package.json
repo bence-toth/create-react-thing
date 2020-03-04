@@ -24,6 +24,7 @@
 		"meow": "^6.0.1",
 		"prop-types": "^15.7.2",
 		"react": "^16.13.0",
+		"shelljs": "^0.8.3",
 		"validate-npm-package-name": "^3.0.0"
 	},
 	"devDependencies": {
