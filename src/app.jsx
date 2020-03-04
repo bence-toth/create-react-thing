@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
+const shell = require('shelljs')
 const React = require('react')
 
-const {useState} = React
+const {useState, useEffect} = React
 const {string} = require('prop-types')
 const {Box, Text, Color} = require('ink')
 const {stepStates} = require('./enum')
@@ -138,6 +139,31 @@ const App = ({
     onSetCodeOfConduct
   ] = useState(defaultCodeOfConduct)
 
+  const [
+    isGitClonePending,
+    onSetIsGitClonePending
+  ] = useState(false)
+
+  useEffect(() => {
+    if (step === 12) {
+      // Starting git clone
+      onSetIsGitClonePending(true)
+      shell.exec([
+        'git clone',
+        'https://github.com/bence-toth/react-library-boilerplate.git',
+        packageName
+      ].join(' '), {
+        async: true,
+        silent: true
+      }, () => {
+        // Finished git clone
+        onSetIsGitClonePending(false)
+        shell.cd(packageName)
+      })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step])
+
   return (
     <Box
       flexDirection='column'
@@ -265,6 +291,20 @@ const App = ({
           onSetStep
         })}
       />
+      {(step >= 12) && (
+        <Box
+          paddingTop={1}
+          flexDirection='column'
+        >
+          <Text>
+            {(
+              isGitClonePending
+                ? 'Copying files...'
+                : 'Copying files complete'
+            )}
+          </Text>
+        </Box>
+      )}
       <Box
         paddingTop={2}
         flexDirection='column'
