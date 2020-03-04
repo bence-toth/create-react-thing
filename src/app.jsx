@@ -22,6 +22,8 @@ const App = ({
     onSetIsGitClonePending
   ] = useState(false)
 
+  const [areMockModulesResolved, setAreMockModulesResolved] = useState(false)
+
   useEffect(() => {
     if (Object.keys(configuration).length > 0) {
       // Starting git clone
@@ -38,6 +40,10 @@ const App = ({
         onSetIsGitClonePending(false)
         shell.cd(configuration.packageName)
       })
+
+      setTimeout(() => {
+        setAreMockModulesResolved(true)
+      }, 10000)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [configuration])
@@ -64,27 +70,27 @@ const App = ({
               label='Copying files'
             />
             <Task
-              isPending
+              isPending={!areMockModulesResolved}
               label='Updating package.json'
             />
             <Task
-              isPending
+              isPending={!areMockModulesResolved}
               label='Creating README.md'
             />
             <Task
-              isPending
+              isPending={!areMockModulesResolved}
               label='Creating LICENSE.md'
             />
             <Task
-              isPending
+              isPending={!areMockModulesResolved}
               label='Creating CODE_OF_CONDUCT.md'
             />
             <Task
-              isPending
+              isPending={!areMockModulesResolved}
               label='Starting new git project'
             />
             <Task
-              isPending
+              isPending={!areMockModulesResolved}
               label='Installing packages'
             />
           </Box>
