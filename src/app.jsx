@@ -116,6 +116,10 @@ const App = ({
               <>
                 <Task
                   isPending={!areMockModulesResolved}
+                  label='Some more stuff'
+                />
+                {/* <Task
+                  isPending={!areMockModulesResolved}
                   label='Creating README.md'
                 />
                 <Task
@@ -133,7 +137,7 @@ const App = ({
                 <Task
                   isPending={!areMockModulesResolved}
                   label='Installing packages'
-                />
+                /> */}
               </>
             )}
           </Box>
