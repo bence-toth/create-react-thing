@@ -8,6 +8,7 @@ const {Box, Text, Color} = require('ink')
 const importJsx = require('import-jsx')
 
 const CollectInfo = importJsx('./collectInfo/collectInfo.jsx')
+const Task = importJsx('./components/task.jsx')
 
 const App = ({
   packageName
@@ -52,16 +53,38 @@ const App = ({
       {(Object.keys(configuration).length > 0) && (
         <>
           <Box
-            paddingTop={1}
             flexDirection='column'
+            paddingY={1}
+            paddingX={2}
           >
-            <Text>
-              {(
-                isGitClonePending
-                  ? 'Copying files...'
-                  : 'Copying files complete'
-              )}
-            </Text>
+            <Task
+              isPending={isGitClonePending}
+              label='Copying files'
+            />
+            <Task
+              isPending
+              label='Updating package.json'
+            />
+            <Task
+              isPending
+              label='Creating README.md'
+            />
+            <Task
+              isPending
+              label='Creating LICENSE.md'
+            />
+            <Task
+              isPending
+              label='Creating CODE_OF_CONDUCT.md'
+            />
+            <Task
+              isPending
+              label='Starting new git project'
+            />
+            <Task
+              isPending
+              label='Installing packages'
+            />
           </Box>
           <Box
             paddingTop={2}
