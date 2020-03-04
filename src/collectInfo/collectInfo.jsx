@@ -1,3 +1,5 @@
+const DEBUG_MODE_ON = false
+
 /* eslint-disable react/jsx-props-no-spreading */
 const React = require('react')
 
@@ -282,34 +284,36 @@ const CollectInfo = ({
           onSetStep
         })}
       />
-      <Box
-        paddingTop={2}
-        flexDirection='column'
-      >
-        <Text>
-          <Color yellow>
-            {'DEBUG: '}
-            {JSON.stringify({step})}
-          </Color>
-        </Text>
-        <Text>
-          <Color blueBright>
-            {'DEBUG: '}
-            {JSON.stringify({
-              packageName,
-              isScoped,
-              scopeName,
-              description,
-              keywords,
-              gitRepoUrl,
-              authorName,
-              authorEmail,
-              authorWebsite,
-              license
-            })}
-          </Color>
-        </Text>
-      </Box>
+      {DEBUG_MODE_ON && (
+        <Box
+          paddingTop={2}
+          flexDirection='column'
+        >
+          <Text>
+            <Color yellow>
+              {'DEBUG: '}
+              {JSON.stringify({step})}
+            </Color>
+          </Text>
+          <Text>
+            <Color blueBright>
+              {'DEBUG: '}
+              {JSON.stringify({
+                packageName,
+                isScoped,
+                scopeName,
+                description,
+                keywords,
+                gitRepoUrl,
+                authorName,
+                authorEmail,
+                authorWebsite,
+                license
+              })}
+            </Color>
+          </Text>
+        </Box>
+      )}
     </Box>
   )
 }

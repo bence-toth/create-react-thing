@@ -1,3 +1,5 @@
+const DEBUG_MODE_ON = false
+
 /* eslint-disable react/jsx-props-no-spreading */
 const shell = require('shelljs')
 const React = require('react')
@@ -86,17 +88,19 @@ const App = ({
               label='Installing packages'
             />
           </Box>
-          <Box
-            paddingTop={2}
-            flexDirection='column'
-          >
-            <Text>
-              <Color blueBright>
-                {'DEBUG: '}
-                {JSON.stringify(configuration)}
-              </Color>
-            </Text>
-          </Box>
+          {DEBUG_MODE_ON && (
+            <Box
+              paddingTop={2}
+              flexDirection='column'
+            >
+              <Text>
+                <Color blueBright>
+                  {'DEBUG: '}
+                  {JSON.stringify(configuration)}
+                </Color>
+              </Text>
+            </Box>
+          )}
         </>
       )}
     </Box>
