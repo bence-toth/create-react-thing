@@ -18,11 +18,21 @@ const App = ({
   const [configuration, onSetConfiguration] = useState({})
 
   const [
+    step,
+    onSetStep
+  ] = useState(1)
+
+  const onNextStep = () => onSetStep(step + 1)
+
+  const [
     isGitClonePending,
     onSetIsGitClonePending
   ] = useState(false)
 
-  const [areMockModulesResolved, setAreMockModulesResolved] = useState(false)
+  const [
+    areMockModulesResolved,
+    setAreMockModulesResolved
+  ] = useState(false)
 
   useEffect(() => {
     if (Object.keys(configuration).length > 0) {
@@ -38,7 +48,7 @@ const App = ({
       }, () => {
         // Finished git clone
         onSetIsGitClonePending(false)
-        shell.cd(configuration.packageName)
+        onNextStep()
       })
 
       setTimeout(() => {
@@ -47,6 +57,31 @@ const App = ({
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [configuration])
+
+  const [
+    isGitProjectPending,
+    onSetIsGitProjectPending
+  ] = useState(false)
+
+  useEffect(() => {
+    if (step === 2) {
+      onSetIsGitProjectPending(true)
+      shell.cd(configuration.packageName)
+      shell.rm('-rf', '.git')
+      shell.exec('git init', {
+        async: true,
+        silent: true
+      }, () => {
+        // Finished git init
+        if (configuration.gitRepoUrl.length > 0) {
+          shell.exec(`git remote add origin ${configuration.gitRepoUrl}.git`)
+        }
+        onSetIsGitProjectPending(false)
+        onNextStep()
+      })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step])
 
   return (
     <Box
@@ -65,34 +100,42 @@ const App = ({
             paddingY={1}
             paddingX={2}
           >
-            <Task
-              isPending={isGitClonePending}
-              label='Copying files'
-            />
-            <Task
-              isPending={!areMockModulesResolved}
-              label='Updating package.json'
-            />
-            <Task
-              isPending={!areMockModulesResolved}
-              label='Creating README.md'
-            />
-            <Task
-              isPending={!areMockModulesResolved}
-              label='Creating LICENSE.md'
-            />
-            <Task
-              isPending={!areMockModulesResolved}
-              label='Creating CODE_OF_CONDUCT.md'
-            />
-            <Task
-              isPending={!areMockModulesResolved}
-              label='Starting new git project'
-            />
-            <Task
-              isPending={!areMockModulesResolved}
-              label='Installing packages'
-            />
+            {(step >= 1) && (
+              <Task
+                isPending={isGitClonePending}
+                label='Copying files'
+              />
+            )}
+            {(step >= 2) && (
+              <Task
+                isPending={isGitProjectPending}
+                label='Starting new git project'
+              />
+            )}
+            {(step >= 3) && (
+              <>
+                <Task
+                  isPending={!areMockModulesResolved}
+                  label='Creating README.md'
+                />
+                <Task
+                  isPending={!areMockModulesResolved}
+                  label='Creating LICENSE.md'
+                />
+                <Task
+                  isPending={!areMockModulesResolved}
+                  label='Creating CODE_OF_CONDUCT.md'
+                />
+                <Task
+                  isPending={!areMockModulesResolved}
+                  label='Updating package.json'
+                />
+                <Task
+                  isPending={!areMockModulesResolved}
+                  label='Installing packages'
+                />
+              </>
+            )}
           </Box>
           {DEBUG_MODE_ON && (
             <Box
