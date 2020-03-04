@@ -3,7 +3,7 @@ const React = require('react')
 
 const {string, bool} = require('prop-types')
 const {Box, Text, Color} = require('ink')
-const {default: Spinner} = require('ink-spinner');
+const {default: Spinner} = require('ink-spinner')
 
 const Task = ({
   isPending,
