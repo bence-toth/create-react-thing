@@ -10,6 +10,7 @@ const importJsx = require('import-jsx')
 const handlebars = require('handlebars')
 
 const Task = importJsx('../components/task.jsx')
+const {licenses, codeOfConducts} = require('../enum')
 
 const SetupProject = ({
   configuration
@@ -113,8 +114,7 @@ const SetupProject = ({
       onSetIsLicensePending(true)
       // Delete old LICENSE file
       shell.rm('-rf', 'LICENSE')
-      // TODO: Use enum
-      if (configuration.license === 'MIT') {
+      if (configuration.license === licenses.mit) {
         // Create MIT license file
         const templateCode = shell
           .cat(`${__dirname}/templates/licenses/mit.hbr`)
@@ -147,9 +147,8 @@ const SetupProject = ({
   useEffect(() => {
     if (step === 4) {
       onSetIsCodeOfConductPending(true)
-      // TODO: Use enum
-      if (configuration.codeOfConduct === 'contributorCovenant') {
-        // Create MIT license file
+      if (configuration.codeOfConduct === codeOfConducts.contributorCovenant) {
+        // Create CoC file
         const templateCode = shell
           .cat(`${__dirname}/templates/codesOfConduct/contributorCovenant.hbr`)
           .toString()
