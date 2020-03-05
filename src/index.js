@@ -13,4 +13,6 @@ const {input, flags} = meow(`
 render(React.createElement(App, {
   packageName: input[0],
   flags
-}))
+}), {
+  experimental: true
+})
