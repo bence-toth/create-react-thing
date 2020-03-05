@@ -102,6 +102,7 @@ const SetupProject = ({
   }, [step])
 
   // Step 3:
+  // Optional: Add license
   const [
     isLicensePending,
     onSetIsLicensePending
@@ -112,6 +113,7 @@ const SetupProject = ({
       onSetIsLicensePending(true)
       // Delete old LICENSE file
       shell.rm('-rf', 'LICENSE')
+      // TODO: Use enum
       if (configuration.license === 'MIT') {
         // Create MIT license file
         const templateCode = shell
@@ -129,6 +131,40 @@ const SetupProject = ({
       }
       else {
         onSetIsLicensePending(false)
+        onNextStep()
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step])
+
+  // Step 4:
+  // Optional: Add Code of Conduct
+  const [
+    isCodeOfConductPending,
+    onSetIsCodeOfConductPending
+  ] = useState(false)
+
+  useEffect(() => {
+    if (step === 4) {
+      onSetIsCodeOfConductPending(true)
+      // TODO: Use enum
+      if (configuration.codeOfConduct === 'contributorCovenant') {
+        // Create MIT license file
+        const templateCode = shell
+          .cat(`${__dirname}/templates/codesOfConduct/contributorCovenant.hbr`)
+          .toString()
+        const template = handlebars.compile(templateCode)
+        const codeOfConductContent = template({
+          year: `${new Date().getFullYear()}`,
+          copyrightOwner: configuration.authorName
+        })
+        const codeOfConductPath = './CODE_OF_CONDUCT.md'
+        shell.ShellString(codeOfConductContent).to(codeOfConductPath)
+        onSetIsCodeOfConductPending(false)
+        onNextStep()
+      }
+      else {
+        onSetIsCodeOfConductPending(false)
         onNextStep()
       }
     }
@@ -168,6 +204,12 @@ const SetupProject = ({
           />
         )}
         {(step >= 4) && (
+          <Task
+            isPending={isCodeOfConductPending}
+            label='Creating code of conduct'
+          />
+        )}
+        {(step >= 5) && (
           <>
             <Task
               isPending={!areMockModulesResolved}
@@ -215,8 +257,12 @@ const SetupProject = ({
 
 SetupProject.propTypes = {
   configuration: shape({
+    authorName: string,
+    authorEmail: string,
     packageName: string,
-    gitRepoUrl: string
+    gitRepoUrl: string,
+    license: string, // TODO: use enum
+    codeOfConduct: string // TODO use enum
   })
 }
 
