@@ -308,7 +308,8 @@ const CollectInfo = ({
                 authorName,
                 authorEmail,
                 authorWebsite,
-                license
+                license,
+                codeOfConduct
               })}
             </Color>
           </Text>
