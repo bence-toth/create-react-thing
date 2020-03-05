@@ -1,0 +1,43 @@
+# {{packageName}}
+{{#if hasDescription}}
+> {{description}}
+{{/if}}
+
+
+## Installation
+
+Install via `npm`:
+
+```bash
+npm install {{fullPackageName}}
+```
+
+
+## Usage
+
+Import it:
+```js
+import {} from '{{fullPackageName}}'
+```
+
+
+## Change log
+
+See the detailed [change log](./changelog.md).
+
+
+## Contributing
+
+{{#if hasCodeOfConduct}}
+### Code of conduct
+
+Please read our [Code of Conduct](./code-of-conduct.md).
+{{/if}}
+
+{{availableScripts}}
+
+{{#if hasLicense}}
+## License
+
+[{{license}}](./LICENSE).
+{{/if}}
