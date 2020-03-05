@@ -1,17 +1,18 @@
 const React = require('react')
 const {string, func, oneOf} = require('prop-types')
 const {stepStates} = require('../../enum')
+const {codesOfConduct} = require('../../enum.js')
 const importJsx = require('import-jsx')
 
 const SelectStep = importJsx('../../components/selectStep.jsx')
 
 const options = [{
   label: 'Contributor Covenant',
-  value: 'contributorCovenant',
+  value: codesOfConduct.contributorCovenant,
   default: true
 }, {
   label: 'None',
-  value: null
+  value: codesOfConduct.none
 }]
 
 const CodeOfConductSelect = ({
