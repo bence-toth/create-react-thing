@@ -1,17 +1,18 @@
 const React = require('react')
 const {string, func, oneOf} = require('prop-types')
 const {stepStates} = require('../../enum')
+const {licenses} = require('../../enum.js')
 const importJsx = require('import-jsx')
 
 const SelectStep = importJsx('../../components/selectStep.jsx')
 
 const options = [{
   label: 'MIT',
-  value: 'MIT',
+  value: licenses.mit,
   default: true
 }, {
   label: 'None',
-  value: null
+  value: licenses.none
 }]
 
 const LicenseSelect = ({

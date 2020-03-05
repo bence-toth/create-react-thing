@@ -1,11 +1,11 @@
 const licenses = {
   mit: 'mit',
-  none: 'none'
+  none: null
 }
 
 const codesOfConduct = {
   contributorCovenant: 'contributorCovenant',
-  none: 'none'
+  none: null
 }
 
 const stepStates = {

@@ -156,7 +156,7 @@ const SetupProject = ({
         const codeOfConductContent = template({
           email: configuration.authorEmail
         })
-        const codeOfConductPath = './CODE_OF_CONDUCT.md'
+        const codeOfConductPath = './code-of-conduct.md'
         shell.ShellString(codeOfConductContent).to(codeOfConductPath)
         onSetIsCodeOfConductPending(false)
         onNextStep()
@@ -169,11 +169,46 @@ const SetupProject = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step])
 
-  // Update `package.json`
+  // Step 5:
   // Add readme file
-  // Optional: Add license file
-  // Optional: Add CoC file
-  // Add change log file
+  const [
+    isReadmePending,
+    onSetIsReadmePending
+  ] = useState(false)
+
+  useEffect(() => {
+    if (step === 5) {
+      onSetIsReadmePending(true)
+      const templateCode = shell
+        .cat(`${__dirname}/templates/readme.hbr`)
+        .toString()
+      const availableScripts = shell
+        .cat('./README.md')
+        .toString()
+      const template = handlebars.compile(templateCode, {noEscape: true})
+      const readmeContent = template({
+        packageName: configuration.packageName,
+        hasDescription: configuration.description.length > 0,
+        description: configuration.description,
+        fullPackageName: (
+          configuration.isScoped
+            ? `${configuration.scopeName}/${configuration.packageName}`
+            : configuration.packageName
+        ),
+        hasCodeOfConduct: configuration.codeOfConduct !== null,
+        availableScripts,
+        hasLicense: configuration.license !== null,
+        license: configuration.license
+      })
+      const readmePath = './README.md'
+      shell.ShellString(readmeContent).to(readmePath)
+      onSetIsReadmePending(false)
+      onNextStep()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step])
+
+  // Update `package.json`
   // Install packages (may take a few minutes)
 
   return (
@@ -209,6 +244,10 @@ const SetupProject = ({
         )}
         {(step >= 5) && (
           <>
+            <Task
+              isPending={isReadmePending}
+              label='Creating readme file'
+            />
             <Task
               isPending={!areMockModulesResolved}
               label='Some more stuff'
