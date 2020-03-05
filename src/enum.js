@@ -3,7 +3,7 @@ const licenses = {
   none: 'none'
 }
 
-const codeOfConducts = {
+const codesOfConduct = {
   contributorCovenant: 'contributorCovenant',
   none: 'none'
 }
@@ -16,6 +16,6 @@ const stepStates = {
 
 module.exports = {
   licenses,
-  codeOfConducts,
+  codesOfConduct,
   stepStates
 }

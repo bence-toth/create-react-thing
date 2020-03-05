@@ -154,7 +154,8 @@ const CollectInfo = ({
         authorName,
         authorEmail,
         authorWebsite,
-        license
+        license,
+        codeOfConduct
       })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -308,7 +309,8 @@ const CollectInfo = ({
                 authorName,
                 authorEmail,
                 authorWebsite,
-                license
+                license,
+                codeOfConduct
               })}
             </Color>
           </Text>

@@ -4,12 +4,13 @@ const shell = require('shelljs')
 const React = require('react')
 
 const {useState, useEffect} = React
-const {string, shape} = require('prop-types')
+const {string, shape, oneOf} = require('prop-types')
 const {Box, Text, Color} = require('ink')
 const importJsx = require('import-jsx')
 const handlebars = require('handlebars')
 
 const Task = importJsx('../components/task.jsx')
+const {licenses, codesOfConduct} = require('../enum')
 
 const SetupProject = ({
   configuration
@@ -102,6 +103,7 @@ const SetupProject = ({
   }, [step])
 
   // Step 3:
+  // Optional: Add license
   const [
     isLicensePending,
     onSetIsLicensePending
@@ -112,7 +114,7 @@ const SetupProject = ({
       onSetIsLicensePending(true)
       // Delete old LICENSE file
       shell.rm('-rf', 'LICENSE')
-      if (configuration.license === 'MIT') {
+      if (configuration.license === licenses.mit) {
         // Create MIT license file
         const templateCode = shell
           .cat(`${__dirname}/templates/licenses/mit.hbr`)
@@ -129,6 +131,38 @@ const SetupProject = ({
       }
       else {
         onSetIsLicensePending(false)
+        onNextStep()
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step])
+
+  // Step 4:
+  // Optional: Add Code of Conduct
+  const [
+    isCodeOfConductPending,
+    onSetIsCodeOfConductPending
+  ] = useState(false)
+
+  useEffect(() => {
+    if (step === 4) {
+      onSetIsCodeOfConductPending(true)
+      if (configuration.codeOfConduct === codesOfConduct.contributorCovenant) {
+        // Create CoC file
+        const templateCode = shell
+          .cat(`${__dirname}/templates/codesOfConduct/contributorCovenant.hbr`)
+          .toString()
+        const template = handlebars.compile(templateCode)
+        const codeOfConductContent = template({
+          email: configuration.authorEmail
+        })
+        const codeOfConductPath = './CODE_OF_CONDUCT.md'
+        shell.ShellString(codeOfConductContent).to(codeOfConductPath)
+        onSetIsCodeOfConductPending(false)
+        onNextStep()
+      }
+      else {
+        onSetIsCodeOfConductPending(false)
         onNextStep()
       }
     }
@@ -168,6 +202,12 @@ const SetupProject = ({
           />
         )}
         {(step >= 4) && (
+          <Task
+            isPending={isCodeOfConductPending}
+            label='Creating code of conduct'
+          />
+        )}
+        {(step >= 5) && (
           <>
             <Task
               isPending={!areMockModulesResolved}
@@ -215,8 +255,12 @@ const SetupProject = ({
 
 SetupProject.propTypes = {
   configuration: shape({
+    authorName: string,
+    authorEmail: string,
     packageName: string,
-    gitRepoUrl: string
+    gitRepoUrl: string,
+    license: oneOf(Object.values(licenses)),
+    codeOfConduct: oneOf(Object.values(codesOfConduct))
   })
 }
 
