@@ -260,8 +260,8 @@ SetupProject.propTypes = {
     authorEmail: string,
     packageName: string,
     gitRepoUrl: string,
-    license: string, // TODO: use enum
-    codeOfConduct: string // TODO use enum
+    license: oneOf(Object.values(licenses)),
+    codeOfConduct: oneOf(Object.values(codesOfConduct))
   })
 }
 
