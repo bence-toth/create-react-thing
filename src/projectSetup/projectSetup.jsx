@@ -4,13 +4,13 @@ const shell = require('shelljs')
 const React = require('react')
 
 const {useState, useEffect} = React
-const {string, shape} = require('prop-types')
+const {string, shape, oneOf} = require('prop-types')
 const {Box, Text, Color} = require('ink')
 const importJsx = require('import-jsx')
 const handlebars = require('handlebars')
 
 const Task = importJsx('../components/task.jsx')
-const {licenses, codeOfConducts} = require('../enum')
+const {licenses, codesOfConduct} = require('../enum')
 
 const SetupProject = ({
   configuration
@@ -147,7 +147,7 @@ const SetupProject = ({
   useEffect(() => {
     if (step === 4) {
       onSetIsCodeOfConductPending(true)
-      if (configuration.codeOfConduct === codeOfConducts.contributorCovenant) {
+      if (configuration.codeOfConduct === codesOfConduct.contributorCovenant) {
         // Create CoC file
         const templateCode = shell
           .cat(`${__dirname}/templates/codesOfConduct/contributorCovenant.hbr`)
