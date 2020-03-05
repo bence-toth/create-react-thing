@@ -7,6 +7,7 @@ const {useState, useEffect} = React
 const {string, shape} = require('prop-types')
 const {Box, Text, Color} = require('ink')
 const importJsx = require('import-jsx')
+const handlebars = require('handlebars')
 
 const Task = importJsx('../components/task.jsx')
 
@@ -111,16 +112,21 @@ const SetupProject = ({
       onSetIsLicensePending(true)
       // Delete old LICENSE file
       shell.rm('-rf', 'LICENSE')
-      // TODO: remove eslint-disable
-      // eslint-disable-next-line sonarjs/no-all-duplicated-branches
       if (configuration.license === 'MIT') {
         // Create MIT license file
-        // ...
+        const templateCode = shell
+          .cat(`${__dirname}/templates/licenses/mit.hbr`)
+          .toString()
+        const template = handlebars.compile(templateCode)
+        const licenseContent = template({
+          year: `${new Date().getFullYear()}`,
+          copyrightOwner: configuration.authorName
+        })
+        const licensePath = './LICENSE'
+        shell.ShellString(licenseContent).to(licensePath)
         onSetIsLicensePending(false)
         onNextStep()
       }
-      // TODO: remove eslint-disable
-      // eslint-disable-next-line sonarjs/no-duplicated-branches
       else {
         onSetIsLicensePending(false)
         onNextStep()
