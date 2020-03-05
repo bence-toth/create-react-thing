@@ -154,8 +154,7 @@ const SetupProject = ({
           .toString()
         const template = handlebars.compile(templateCode)
         const codeOfConductContent = template({
-          year: `${new Date().getFullYear()}`,
-          copyrightOwner: configuration.authorName
+          email: configuration.authorEmail
         })
         const codeOfConductPath = './CODE_OF_CONDUCT.md'
         shell.ShellString(codeOfConductContent).to(codeOfConductPath)
