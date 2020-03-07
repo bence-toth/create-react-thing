@@ -56,7 +56,6 @@ const getStepProps = ({
 const CollectInfo = ({
   packageName: commandLineArgumentPackageName = '',
   onSaveConfiguration
-  // TODO: flags
 }) => {
   const [
     step,
@@ -324,11 +323,6 @@ const CollectInfo = ({
 CollectInfo.propTypes = {
   packageName: string,
   onSaveConfiguration: func
-  // TODO: flags: object
-}
-
-CollectInfo.defaultProps = {
-  // TODO: flags: {}
 }
 
 module.exports = CollectInfo

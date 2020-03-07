@@ -92,7 +92,6 @@ const SetupProject = ({
         // Finished git init
         if (configuration.gitRepoUrl.length > 0) {
           // Add git remote if URL was provided
-          // TODO: Crop tailing `/` if present in `configuration.gitRepoUrl`
           shell.exec(`git remote add origin ${configuration.gitRepoUrl}.git`)
         }
         onSetIsGitProjectPending(false)
@@ -280,7 +279,6 @@ const SetupProject = ({
         ...(
           (configuration.gitRepoUrl.length > 0)
             ? {
-              // TODO: Remove tailing slash from git repo URL
               homepage: `${configuration.gitRepoUrl}#readme`,
               repository: {
                 type: 'git',

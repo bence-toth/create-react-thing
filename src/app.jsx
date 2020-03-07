@@ -32,11 +32,6 @@ const App = ({
 
 App.propTypes = {
   packageName: string
-  // TODO: flags: object
-}
-
-App.defaultProps = {
-  // TODO: flags: {}
 }
 
 module.exports = App
