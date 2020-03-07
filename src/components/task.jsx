@@ -30,6 +30,9 @@ const Task = ({
     </Text>
     <Text>
       {label}
+      {isPending && (
+        <Spinner type='simpleDots' />
+      )}
     </Text>
   </Box>
 )
