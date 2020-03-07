@@ -53,7 +53,7 @@ const validateGitRepoUrl = url => {
   // Must be like: `https://github.com/{USERNAME}/{REPO}`
   const gitHubRepoRegex = (
     // eslint-disable-next-line optimize-regex/optimize-regex, unicorn/regex-shorthand
-    /^https:\/\/github\.com\/([\w\d-_]+)\/([\w\d-_]+)$/
+    /^https:\/\/github\.com\/([\w\d-_]+)\/([\w\d-_]+)(\/?)$/
   )
   if (!gitHubRepoRegex.test(url)) {
     return [
