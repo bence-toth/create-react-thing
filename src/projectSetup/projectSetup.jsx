@@ -238,33 +238,60 @@ const SetupProject = ({
             : configuration.packageName
         ),
         version: '1.0.0',
-        // TODO: optional
-        description: configuration.description,
-        // TODO: optional
-        keywords: configuration.keywords,
+        ...(
+          (configuration.description.length > 0)
+            ? {
+              description: configuration.description
+            }
+            : {}
+        ),
+        ...(
+          (configuration.keywords.length > 0)
+            ? {
+              keywords: configuration.keywords
+            }
+            : {}
+        ),
+        ...(
+          (configuration.license === licenses.mit)
+            ? {
+              license: 'MIT'
+            }
+            : {}
+        ),
         scripts,
-        // TODO: only include license if present
-        license: (configuration.license === licenses.mit) ? 'MIT' : '',
-        // TODO: email and url are optional
         author: {
           name: configuration.authorName,
-          email: configuration.authorEmail,
-          url: configuration.authorWebsite
+          ...(
+            (configuration.authorEmail.length > 0)
+              ? {
+                email: configuration.authorEmail
+              }
+              : {}
+          ),
+          ...(
+            (configuration.authorWebsite.length > 0)
+              ? {
+                url: configuration.authorWebsite
+              }
+              : {}
+          )
         },
-        // TODO: What if no git repo URL was provided?
-        // TODO: Remove tailing slash from git repo URL
-        homepage: `${configuration.gitRepoUrl}#readme`,
-        // TODO: What if no git repo URL was provided?
-        // TODO: Remove tailing slash from git repo URL
-        repository: {
-          type: 'git',
-          url: `${configuration.gitRepoUrl}.git`
-        },
-        // TODO: What if no git repo URL was provided?
-        // TODO: Remove tailing slash from git repo URL
-        bugs: {
-          url: `${configuration.gitRepoUrl}/issues`
-        },
+        ...(
+          (configuration.gitRepoUrl.length > 0)
+            ? {
+              // TODO: Remove tailing slash from git repo URL
+              homepage: `${configuration.gitRepoUrl}#readme`,
+              repository: {
+                type: 'git',
+                url: `${configuration.gitRepoUrl}.git`
+              },
+              bugs: {
+                url: `${configuration.gitRepoUrl}/issues`
+              }
+            }
+            : {}
+        ),
         dependencies,
         peerDependencies,
         devDependencies,
