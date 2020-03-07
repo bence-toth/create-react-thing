@@ -6,8 +6,8 @@ const React = require('react')
 const {useState, useEffect} = React
 const {string, shape, oneOf} = require('prop-types')
 const {Box, Text, Color} = require('ink')
-const importJsx = require('import-jsx')
 const handlebars = require('handlebars')
+const importJsx = require('import-jsx')
 
 const Task = importJsx('../components/task.jsx')
 const {licenses, codesOfConduct} = require('../enum')
@@ -208,70 +208,128 @@ const SetupProject = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step])
 
+  // Step 6:
   // Update `package.json`
+  const [
+    isPackageJsonPending,
+    onSetIsPackageJsonPending
+  ] = useState(false)
+
+  useEffect(() => {
+    if (step === 6) {
+      onSetIsPackageJsonPending(true)
+      const packageJsonPath = './package.json'
+      const {
+        scripts,
+        files,
+        main,
+        devDependencies,
+        peerDependencies,
+        dependencies
+      } = JSON.parse((
+        shell
+          .cat(packageJsonPath)
+          .toString()
+      ))
+      const updatedPackageObject = {
+        name: (
+          configuration.isScoped
+            ? `${configuration.scopeName}/${configuration.packageName}`
+            : configuration.packageName
+        ),
+        version: '1.0.0',
+        // TODO: optional
+        description: configuration.description,
+        // TODO: optional
+        keywords: configuration.keywords,
+        scripts,
+        // TODO: only include license if present
+        license: (configuration.license === licenses.mit) ? 'MIT' : '',
+        // TODO: email and url are optional
+        author: {
+          name: configuration.authorName,
+          email: configuration.authorEmail,
+          url: configuration.authorWebsite
+        },
+        // TODO: What if no git repo URL was provided?
+        // TODO: Remove tailing slash from git repo URL
+        homepage: `${configuration.gitRepoUrl}#readme`,
+        // TODO: What if no git repo URL was provided?
+        // TODO: Remove tailing slash from git repo URL
+        repository: {
+          type: 'git',
+          url: `${configuration.gitRepoUrl}.git`
+        },
+        // TODO: What if no git repo URL was provided?
+        // TODO: Remove tailing slash from git repo URL
+        bugs: {
+          url: `${configuration.gitRepoUrl}/issues`
+        },
+        dependencies,
+        peerDependencies,
+        devDependencies,
+        main,
+        files
+      }
+      shell
+        .ShellString(JSON.stringify(updatedPackageObject, null, 2))
+        .to(packageJsonPath)
+      onSetIsPackageJsonPending(false)
+      onNextStep()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step])
+
   // Install packages (may take a few minutes)
 
   return (
     <>
       <Box
         flexDirection='column'
-        paddingY={1}
         paddingX={2}
       >
         {(step >= 1) && (
           <Task
             isPending={isGitClonePending}
-            label='Copying files'
+            label='copying files'
           />
         )}
         {(step >= 2) && (
           <Task
             isPending={isGitProjectPending}
-            label='Starting new git project'
+            label='starting new git project'
           />
         )}
         {(step >= 3) && (
           <Task
             isPending={isLicensePending}
-            label='Creating license file'
+            label='creating license file'
           />
         )}
         {(step >= 4) && (
           <Task
             isPending={isCodeOfConductPending}
-            label='Creating code of conduct'
+            label='creating code of conduct'
           />
         )}
         {(step >= 5) && (
+          <Task
+            isPending={isReadmePending}
+            label='creating readme file'
+          />
+        )}
+        {(step >= 6) && (
+          <Task
+            isPending={isPackageJsonPending}
+            label='creating package.json file'
+          />
+        )}
+        {(step >= 7) && (
           <>
-            <Task
-              isPending={isReadmePending}
-              label='Creating readme file'
-            />
-            <Task
-              isPending={!areMockModulesResolved}
-              label='Some more stuff'
-            />
-            {/* <Task
-              isPending={!areMockModulesResolved}
-              label='Creating README.md'
-            />
-            <Task
-              isPending={!areMockModulesResolved}
-              label='Creating LICENSE.md'
-            />
-            <Task
-              isPending={!areMockModulesResolved}
-              label='Creating CODE_OF_CONDUCT.md'
-            />
-            <Task
-              isPending={!areMockModulesResolved}
-              label='Updating package.json'
-            />
             <Task
               isPending={!areMockModulesResolved}
               label='Installing packages'
-            /> */}
+            />
           </>
         )}
       </Box>
