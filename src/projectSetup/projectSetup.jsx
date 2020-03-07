@@ -14,6 +14,7 @@ const {licenses, codesOfConduct} = require('../enum')
 
 const SetupProject = ({
   configuration
+// eslint-disable-next-line sonarjs/cognitive-complexity
 }) => {
   const [
     step,
@@ -37,12 +38,6 @@ const SetupProject = ({
     onSetIsGitClonePending
   ] = useState(false)
 
-  // TODO: Remove me
-  const [
-    areMockModulesResolved,
-    setAreMockModulesResolved
-  ] = useState(false)
-
   useEffect(() => {
     if (step === 1) {
       // Clone GitHub repo with boilerplate
@@ -59,11 +54,6 @@ const SetupProject = ({
         onSetIsGitClonePending(false)
         onNextStep()
       })
-
-      // TODO: Remove me
-      setTimeout(() => {
-        setAreMockModulesResolved(true)
-      }, 10000)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step])
@@ -305,7 +295,27 @@ const SetupProject = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step])
 
-  // Install packages (may take a few minutes)
+  // Step 7:
+  // Install packages
+  const [
+    isNpmInstallPending,
+    onSetIsNpmInstallPending
+  ] = useState(false)
+
+  useEffect(() => {
+    if (step === 7) {
+      onSetIsNpmInstallPending(true)
+      shell.exec('npm install', {
+        async: true,
+        silent: true
+      }, () => {
+        // Finished npm install
+        onSetIsNpmInstallPending(false)
+        onNextStep()
+      })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step])
 
   return (
     <>
@@ -316,7 +326,12 @@ const SetupProject = ({
         {(step >= 1) && (
           <Task
             isPending={isGitClonePending}
-            label='copying files'
+            label={(
+              isGitClonePending
+                ? 'copying files, this may take a few seconds'
+                : 'copying files'
+            )}
+            isLong
           />
         )}
         {(step >= 2) && (
@@ -352,8 +367,13 @@ const SetupProject = ({
         {(step >= 7) && (
           <>
             <Task
-              isPending={!areMockModulesResolved}
-              label='Installing packages'
+              isPending={isNpmInstallPending}
+              label={(
+                isNpmInstallPending
+                  ? 'installing packages, this may take a few minutes'
+                  : 'installing packages'
+              )}
+              isLong
             />
           </>
         )}
