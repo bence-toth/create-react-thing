@@ -56,7 +56,6 @@ const getStepProps = ({
 const CollectInfo = ({
   packageName: commandLineArgumentPackageName = '',
   onSaveConfiguration
-  // TODO: flags
 }) => {
   const [
     step,
@@ -150,7 +149,8 @@ const CollectInfo = ({
         scopeName,
         description,
         keywords,
-        gitRepoUrl,
+        // Delete tailing slash from Git repo URL
+        gitRepoUrl: gitRepoUrl.replace(/\/$/, ''),
         authorName,
         authorEmail,
         authorWebsite,
@@ -164,7 +164,7 @@ const CollectInfo = ({
   return (
     <Box
       flexDirection='column'
-      paddingY={1}
+      paddingTop={1}
       paddingX={2}
     >
       <Header
@@ -323,11 +323,6 @@ const CollectInfo = ({
 CollectInfo.propTypes = {
   packageName: string,
   onSaveConfiguration: func
-  // TODO: flags: object
-}
-
-CollectInfo.defaultProps = {
-  // TODO: flags: {}
 }
 
 module.exports = CollectInfo

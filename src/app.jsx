@@ -17,12 +17,10 @@ const App = ({
     <Box
       flexDirection='column'
     >
-      {(Object.keys(configuration).length === 0) && (
-        <CollectInfo
-          packageName={packageName}
-          onSaveConfiguration={onSetConfiguration}
-        />
-      )}
+      <CollectInfo
+        packageName={packageName}
+        onSaveConfiguration={onSetConfiguration}
+      />
       {(Object.keys(configuration).length > 0) && (
         <ProjectSetup
           configuration={configuration}
@@ -34,11 +32,6 @@ const App = ({
 
 App.propTypes = {
   packageName: string
-  // TODO: flags: object
-}
-
-App.defaultProps = {
-  // TODO: flags: {}
 }
 
 module.exports = App
