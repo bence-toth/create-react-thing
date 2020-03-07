@@ -1,7 +1,6 @@
 {
   "extends": ["@bence.a.toth/eslint-config"],
   "rules": {
-    "import/no-unused-modules": 0,
-    "import/no-nodejs-modules": 0
+    "import/no-unused-modules": 0
   }
 }
