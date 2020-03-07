@@ -164,7 +164,7 @@ const CollectInfo = ({
   return (
     <Box
       flexDirection='column'
-      paddingY={1}
+      paddingTop={1}
       paddingX={2}
     >
       <Header
