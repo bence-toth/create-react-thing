@@ -150,7 +150,8 @@ const CollectInfo = ({
         scopeName,
         description,
         keywords,
-        gitRepoUrl,
+        // Delete tailing slash from Git repo URL
+        gitRepoUrl: gitRepoUrl.replace(/\/$/, ''),
         authorName,
         authorEmail,
         authorWebsite,
