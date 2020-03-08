@@ -317,6 +317,30 @@ const SetupProject = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step])
 
+
+  // Step 8:
+  // Create git commit
+  const [
+    isGitCommitPending,
+    onSetIsGitCommitPending
+  ] = useState(false)
+
+  useEffect(() => {
+    if (step === 8) {
+      onSetIsGitCommitPending(true)
+      shell.exec('git add -A', {silent: true})
+      shell.exec('git commit -m "Initial commit"', {
+        async: true,
+        silent: true
+      }, () => {
+        // Finished npm install
+        onSetIsGitCommitPending(false)
+        onNextStep()
+      })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step])
+
   return (
     <>
       <Box
@@ -376,6 +400,12 @@ const SetupProject = ({
               isLong
             />
           </>
+        )}
+        {(step >= 6) && (
+          <Task
+            isPending={isGitCommitPending}
+            label='creating git commit'
+          />
         )}
       </Box>
       {DEBUG_MODE_ON && (
