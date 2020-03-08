@@ -401,7 +401,7 @@ const SetupProject = ({
             />
           </>
         )}
-        {(step >= 6) && (
+        {(step >= 8) && (
           <Task
             isPending={isGitCommitPending}
             label='creating git commit'
