@@ -4,7 +4,7 @@ const shell = require('shelljs')
 const React = require('react')
 
 const {useState, useEffect} = React
-const {string, shape, oneOf} = require('prop-types')
+const {string, shape, oneOf, func, bool, arrayOf} = require('prop-types')
 const {Box, Text, Color} = require('ink')
 const handlebars = require('handlebars')
 const importJsx = require('import-jsx')
@@ -13,7 +13,9 @@ const Task = importJsx('../components/task.jsx')
 const {licenses, codesOfConduct} = require('../enum')
 
 const SetupProject = ({
-  configuration
+  configuration,
+  onHasFinished
+// TODO: Refactor this
 // eslint-disable-next-line sonarjs/cognitive-complexity
 }) => {
   const [
@@ -432,8 +434,14 @@ SetupProject.propTypes = {
     packageName: string,
     gitRepoUrl: string,
     license: oneOf(Object.values(licenses)),
-    codeOfConduct: oneOf(Object.values(codesOfConduct))
-  })
+    codeOfConduct: oneOf(Object.values(codesOfConduct)),
+    description: string,
+    isScoped: bool,
+    scopeName: string,
+    keywords: arrayOf(string),
+    authorWebsite: string
+  }),
+  onHasFinished: func
 }
 
 module.exports = SetupProject
