@@ -38,7 +38,6 @@ const getStepState = ({
   return upcoming
 }
 
-// eslint-disable-next-line unicorn/prevent-abbreviations
 const getStepProps = ({
   currentStep,
   stepNumber,
