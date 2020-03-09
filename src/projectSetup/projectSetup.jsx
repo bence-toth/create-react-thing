@@ -343,6 +343,15 @@ const SetupProject = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step])
 
+  useEffect(() => {
+    if (step === 9) {
+      setTimeout(() => {
+        onHasFinished()
+      }, 1500)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step])
+
   return (
     <>
       <Box
