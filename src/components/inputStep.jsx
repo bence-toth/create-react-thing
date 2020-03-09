@@ -18,7 +18,8 @@ const InputStep = ({
   onChange,
   onSubmit,
   validationError,
-  children
+  children,
+  placeholder
 }) => (
   <>
     {(state === current) && (
@@ -30,6 +31,7 @@ const InputStep = ({
             value={value}
             onChange={onChange}
             onSubmit={onSubmit}
+            placeholder={placeholder}
           />
         </Box>
         {validationError && (
@@ -88,7 +90,8 @@ InputStep.propTypes = {
   onChange: func,
   onSubmit: func,
   validationError: oneOfType([string, bool]),
-  children: node
+  children: node,
+  placeholder: string
 }
 
 module.exports = InputStep

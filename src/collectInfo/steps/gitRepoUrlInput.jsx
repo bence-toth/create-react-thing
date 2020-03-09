@@ -35,6 +35,7 @@ const GitRepoUrlInput = ({
       validationError={(isDirty && validationErrors) && (
         validationErrors[0]
       )}
+      placeholder='e.g. https://github.com/user/repo'
       onChange={onSetGitRepoUrl}
       onSubmit={() => {
         onSetIsDirty(true)

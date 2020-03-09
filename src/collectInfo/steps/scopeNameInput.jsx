@@ -41,6 +41,7 @@ const ScopeNameInput = ({
           onNextStep()
         }
       }}
+      placeholder='e.g. @scope'
     >
       {'Need help? Read more about scopes in the npm documentation:'}
       {'https://docs.npmjs.com/about-scopes'}
