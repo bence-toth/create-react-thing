@@ -42,9 +42,13 @@ const App = ({
       )}
       {isFinished && (
         <Intro
-          packageName='asd'
-          fullPackageName='@asd/asd'
-          folderPath='/home/user/repos/temp/asd'
+          packageName={configuration.packageName}
+          fullPackageName={(
+            configuration.isScoped
+              ? `${configuration.scopeName}/${configuration.packageName}`
+              : configuration.packageName
+          )}
+          folderPath={process.cwd()}
         />
       )}
     </Box>
