@@ -1,10 +1,11 @@
 {
-	"name": "create-react-library",
-	"version": "0.0.0",
+	"name": "create-react-thing",
+	"version": "0.0.1",
 	"license": "MIT",
 	"bin": "src/index.js",
 	"engines": {
-		"node": ">=8"
+		"node": ">=12",
+		"npm": ">=5"
 	},
 	"scripts": {
 		"lint": "eslint --ignore-path .gitignore --ext .jsx --ext .js .",
