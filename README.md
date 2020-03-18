@@ -28,7 +28,7 @@ npx create-react-thing @my-scope/my-thing
 
 ## What can I use it for?
 
-Create React Thing's boilerplate is meant for React libraries you would typically publish to [the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry), for example:
+Create React Thing’s boilerplate is meant for React libraries you would typically publish to [the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry), for example:
 - a single React component
 - a React component library
 - a single React custom hook
