@@ -41,4 +41,8 @@ Please read our [Code of Conduct](./code-of-conduct.md).
 ## License
 
 [{{license}}](./LICENSE).
+
 {{/if}}
+## Credits and acknowledgments
+
+This library was bootstrapped with [Create React Thing](https://github.com/bence-toth/create-react-thing).
