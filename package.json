@@ -1,6 +1,7 @@
 {
 	"name": "create-react-thing",
 	"version": "0.0.1",
+	"description": "Create rich boilerplate for React libraries with ease",
 	"license": "MIT",
 	"bin": "src/index.js",
 	"engines": {
