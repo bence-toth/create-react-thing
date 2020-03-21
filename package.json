@@ -1,6 +1,6 @@
 {
 	"name": "create-react-thing",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Create rich boilerplate for React libraries with ease",
 	"keywords": [
 		"react component library boilerplate",
