@@ -12,17 +12,17 @@
 	],
 	"homepage": "https://github.com/bence-toth/create-react-thing",
 	"repository": {
-		"type" : "git",
-		"url" : "github:bence-toth/create-react-thing"
+		"type": "git",
+		"url": "github:bence-toth/create-react-thing"
 	},
 	"bugs": {
 		"url": "https://github.com/bence-toth/create-react-thing/issues"
 	},
 	"license": "MIT",
 	"author": {
-		"name" : "Bence A. Tóth",
-		"email" : "tothab@gmail.com",
-		"url" : "https://github.com/bence-toth"
+		"name": "Bence A. Tóth",
+		"email": "tothab@gmail.com",
+		"url": "https://github.com/bence-toth"
 	},
 	"bin": "src/index.js",
 	"engines": {
