@@ -10,6 +10,7 @@
 		"react",
 		"boilerplate"
 	],
+	"homepage": "https://github.com/bence-toth/create-react-thing",
 	"license": "MIT",
 	"author": {
 		"name" : "Bence A. Tóth",
