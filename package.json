@@ -15,6 +15,9 @@
 		"type" : "git",
 		"url" : "github:bence-toth/create-react-thing"
 	},
+	"bugs": {
+		"url": "https://github.com/bence-toth/create-react-thing/issues"
+	},
 	"license": "MIT",
 	"author": {
 		"name" : "Bence A. Tóth",
