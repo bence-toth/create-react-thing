@@ -10,7 +10,7 @@
 		"react",
 		"boilerplate"
 	],
-	"homepage": "https://github.com/bence-toth/create-react-thing",
+	"homepage": "https://github.com/bence-toth/create-react-thing#readme",
 	"repository": {
 		"type": "git",
 		"url": "github:bence-toth/create-react-thing"
