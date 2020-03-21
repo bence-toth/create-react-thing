@@ -11,6 +11,11 @@
 		"boilerplate"
 	],
 	"license": "MIT",
+	"author": {
+		"name" : "Bence A. Tóth",
+		"email" : "tothab@gmail.com",
+		"url" : "https://github.com/bence-toth"
+	},
 	"bin": "src/index.js",
 	"engines": {
 		"node": ">=12",
