@@ -2,6 +2,14 @@
 	"name": "create-react-thing",
 	"version": "0.0.1",
 	"description": "Create rich boilerplate for React libraries with ease",
+	"keywords": [
+		"react component library boilerplate",
+		"react npm library boilerplate",
+		"react library boilerplate",
+		"react boilerplate",
+		"react",
+		"boilerplate"
+	],
 	"license": "MIT",
 	"bin": "src/index.js",
 	"engines": {
