@@ -1,15 +1,33 @@
 {
 	"name": "create-react-thing",
-	"version": "0.0.1",
+	"version": "0.0.2",
+	"description": "Create rich boilerplate for React libraries with ease",
+	"keywords": [
+		"react component library boilerplate",
+		"react npm library boilerplate",
+		"react library boilerplate",
+		"react boilerplate",
+		"react",
+		"boilerplate"
+	],
+	"homepage": "https://github.com/bence-toth/create-react-thing#readme",
+	"repository": {
+		"type": "git",
+		"url": "github:bence-toth/create-react-thing"
+	},
+	"bugs": {
+		"url": "https://github.com/bence-toth/create-react-thing/issues"
+	},
 	"license": "MIT",
+	"author": {
+		"name": "Bence A. Tóth",
+		"email": "tothab@gmail.com",
+		"url": "https://github.com/bence-toth"
+	},
 	"bin": "src/index.js",
 	"engines": {
 		"node": ">=12",
 		"npm": ">=5.2"
-	},
-	"scripts": {
-		"lint": "eslint --ignore-path .gitignore --ext .jsx --ext .js .",
-		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"files": [
 		"LICENSE",
@@ -42,17 +60,13 @@
 		"ink-testing-library": "^1.0.3",
 		"eslint": "^6.8.0"
 	},
-	"ava": {
-		"require": [
-			"@babel/register"
-		]
+	"scripts": {
+		"lint": "eslint --ignore-path .gitignore --ext .jsx --ext .js .",
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"babel": {
 		"presets": [
 			"@babel/preset-react"
 		]
-	},
-	"xo": {
-		"extends": "xo-react"
 	}
 }
