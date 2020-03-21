@@ -7,10 +7,6 @@
 		"node": ">=12",
 		"npm": ">=5.2"
 	},
-	"scripts": {
-		"lint": "eslint --ignore-path .gitignore --ext .jsx --ext .js .",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
 	"files": [
 		"LICENSE",
 		"README.md",
@@ -41,6 +37,10 @@
 		"eslint-plugin-react-hooks": "^2.5.0",
 		"ink-testing-library": "^1.0.3",
 		"eslint": "^6.8.0"
+	},
+	"scripts": {
+		"lint": "eslint --ignore-path .gitignore --ext .jsx --ext .js .",
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"babel": {
 		"presets": [
