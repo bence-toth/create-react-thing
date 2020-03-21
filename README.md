@@ -37,7 +37,7 @@ Create React Thing’s boilerplate is meant for React libraries you would typica
 
 ## What’s included?
 
-Your environment will have many tools to help you build a modern React libraries:
+Your environment will have many tools to help you build modern React libraries:
 
 - [React](https://reactjs.org/), [ES.next](https://babeljs.io/docs/en/babel-preset-env) and [JSX](https://reactjs.org/docs/introducing-jsx.html) syntax support with [Babel](https://babeljs.io/)
 
